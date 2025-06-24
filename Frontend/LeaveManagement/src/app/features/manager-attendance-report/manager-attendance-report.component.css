@@ -1,0 +1,618 @@
+.body{
+    margin-top: 90px;
+}
+
+/* General Body Styling (Keep these in your main styles.css or a global file) */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Form Container - Adjusted for layout integration */
+.form-page-container {
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.date-form-card {
+    background-color: #ffffff; /* White card background */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    animation: slideInDown 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* New: Wrapper for date fields and button to place them in a single row */
+.date-fields-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* General form group styles */
+.form-group {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Specific styling for the date input groups within the row */
+.date-fields-row .date-input-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+
+.form-label {
+    color: #333333;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.date-input-wrapper {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    height: 42px;
+}
+
+.date-input-wrapper input[type="date"] {
+    width: 100%;
+    padding: 8px 15px;
+    border: none;
+    background-color: transparent;
+    color: #000000;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: normal;
+}
+
+/* Hide default calendar icon for better custom styling */
+.date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+    background: none;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.date-input-wrapper input[type="date"]::-moz-calendar-picker-indicator {
+    background: none;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.date-input-wrapper .calendar-icon {
+    padding: 0 15px 0 0;
+    color: #555555;
+    font-size: 1.1rem;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.date-input-wrapper:focus-within {
+    border-color: #3498db;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+    background-color: #ffffff;
+}
+
+/* Submit Button Styles */
+.submit-btn {
+    background-color: #27ae60;
+    border-radius: 20px;
+    border: none;
+    min-width: 120px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px 10px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-left: auto;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: #07672f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+/* Keyframes for Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments for the new .date-fields-row */
+@media (max-width: 768px) {
+    .date-fields-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+
+    .date-fields-row .date-input-group {
+        width: 100%;
+        min-width: unset;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .form-label {
+        width: auto;
+        text-align: left;
+    }
+
+    .date-input-wrapper {
+        flex-grow: 1;
+        width: auto;
+        height: 40px;
+    }
+    .date-input-wrapper input[type="date"] {
+        padding: 6px 15px;
+    }
+    .date-input-wrapper .calendar-icon {
+        font-size: 1rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .date-form-card {
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .date-fields-row {
+        gap: 10px;
+    }
+    .date-fields-row .date-input-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .date-input-wrapper {
+        height: 38px;
+    }
+    .date-input-wrapper input[type="date"] {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+    .date-input-wrapper .calendar-icon {
+        font-size: 0.9rem;
+        padding-right: 10px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+.AttendanceReport{
+    margin-top: 10px;
+}
+
+/* --- Table Specific Styles --- */
+.table-responsive {
+    width: 80%;
+    margin: 30px auto 0 auto;
+    overflow-x: auto;
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f8f8;
+}
+
+/* --- Changes for vertical lines and borders --- */
+.table-bordered th,
+.table-bordered td {
+    border: none;
+}
+
+/* Add only horizontal borders */
+.table-bordered th {
+    border-bottom: 1px solid #ffffff;
+}
+
+.table-bordered td {
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Remove last row's bottom border if desired, though usually kept for consistency */
+.table-bordered tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Header styles - adjusted selector to apply to table headers */
+table thead th {
+    color: #0056b3;
+    background-color: #e6f2ff;
+    border-bottom: 2px solid #2980b9;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: normal;
+}
+
+/* --- Animations (ensure these are present in your stylesheet) --- */
+/* (fadeIn keyframes are already defined above) */
+
+/* --- Responsive adjustments for table --- */
+@media (max-width: 768px) {
+    .table-responsive {
+        width: 95%;
+        margin-top: 20px;
+    }
+    table thead th,
+    .table tbody td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-responsive {
+        width: 100%;
+    }
+}
+
+/* --- New: Container for side-by-side search bars --- */
+.search-controls-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 15px 25px;
+  border-radius: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-right: 100px;
+
+}
+
+/* --- Search Bar Styling (Adjusted) --- */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 6px;
+    flex-grow: 1;
+    justify-content: flex-end;
+    max-width: 300px;
+    border: #000000 solid 1px;
+
+    margin: 0;
+    outline: none;
+}
+
+
+.search-input {
+    flex-grow: 0;
+    width: 250px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: normal;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #888;
+    font-weight: normal;
+    outline: none;
+    border: none; /* Remove the border completely */
+}
+
+.search-input:focus {
+
+    border: none; /* Remove the border completely */
+    outline: none; /* Crucially, remove the default browser outline */
+}
+
+.search-icon {
+    color: #555;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+/* --- Message Display Area Styles (New) --- */
+.message-area {
+    margin-top: 20px; /* Space from the date picker card */
+    text-align: center;
+    padding: 0 20px; /* Padding for overall area */
+}
+
+/* --- Specific Message Styles --- */
+.attendance-error-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #0056b3;
+    border: 1px solid #ffffff;
+    border-radius: 0.375rem;
+    margin-top: 15px; /* Space above or below */
+    font-weight: bold; /* Not bold by default, can adjust */
+    font-style: normal; /* Normal font style */
+
+}
+
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #007bff;
+    margin-top: 20px;
+}
+
+.no-data-message,
+.no-search-results-message {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    margin: 20px auto; /* Center the message with margin */
+    font-weight: normal;
+    max-width: 600px; /* Limit width for readability */
+}
+
+/* --- Reset Button Styling --- */
+  .reset-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px -1px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .reset-btn:hover {
+    background-color: #5a6268;
+    box-shadow: 0 6px 15px rgba(59, 60, 60, 0.3);
+
+  }
+
+  .reset-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  /* --- Animation for error message (optional, but good for UX) --- */
+  /* (fadeIn keyframes are already defined above) */
+
+/* --- Validation Message Styles --- */
+.validation-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    text-align: left;
+    width: 100%;
+    font-weight: normal;
+  }
+
+  /* --- Input Invalid State Styles --- */
+  .date-input-wrapper .is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+
+  /* Specific styling for the input element when invalid */
+  .date-input-wrapper input[type="date"].is-invalid {
+    border-color: #dc3545;
+  }
+
+  /* Adjustments for responsive design on smaller screens */
+  @media (max-width: 768px) {
+    .date-fields-row .validation-message {
+      text-align: left;
+      margin-left: 0;
+    }
+    .search-controls-row {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+    .search-bar-container {
+        width: 100%;
+        max-width: 300px;
+        justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .validation-message {
+      font-size: 0.8rem;
+    }
+    .search-bar-container .search-input {
+        width: 100%;
+    }
+  }
+
+
+
+  /* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-top: 1px solid #ffffff;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .pagination-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    min-width: 90px;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  .pagination-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 5px;
+  }
+
+  .page-number-btn {
+    background-color: #e9ecef;
+    color: #343a40;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .page-number-btn:hover:not(.active) {
+    background-color: #d6dde3;
+    color: #000000;
+  }
+
+  .page-number-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bold;
+  }
+
+  /* Adjust table-responsive margin to account for new pagination at the bottom */
+  .table-responsive {
+      /* Adjusted margin-bottom to make space for pagination */
+      margin: 30px auto 0 auto; /* Keep original top/left/right, adjust bottom as needed */
+      padding-bottom: 20px; /* Add some padding if pagination is directly below */
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+  }
+
+  /* Consider adjusting .attendance-results-summary padding if pagination feels too cramped */
+  .attendance-results-summary {
+      /* Add padding at the bottom if pagination is directly inside this div */
+      padding-bottom: 20px;
+  }
+
+  /* Media queries for responsive pagination */
+  @media (max-width: 768px) {
+    .pagination-controls {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pagination-btn, .page-number-btn {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      min-width: unset;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pagination-controls {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .page-numbers {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pagination-btn {
+      width: 100%;
+    }
+  }

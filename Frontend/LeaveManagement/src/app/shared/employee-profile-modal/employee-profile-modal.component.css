@@ -1,0 +1,177 @@
+/* src/app/shared/employee-profile-modal/employee-profile-modal.component.css */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker, more opaque backdrop */
+  backdrop-filter: blur(4px); /* A subtle blur effect */
+  z-index: 1040; /* Standard Bootstrap modal backdrop z-index */
+  opacity: 0;
+  animation: fadeIn 0.3s forwards; /* Fade in animation */
+}
+
+.modal-dialog {
+  position: fixed;
+  top: 50%; /* Keep vertical centering */
+  right: 20px; /* Position from the right edge, with a 20px margin */
+  transform: translateY(-50%) scale(0.95); /* Only vertical translate needed; horizontal is handled by 'right' property */
+  z-index: 1050; /* Standard Bootstrap modal z-index */
+  width: 90%; /* Responsive width */
+  max-width: 400px; /* Adjusted max width for a side panel feel */
+  background-color: #ffffff; /* White background for the modal content */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Stronger, softer shadow */
+  overflow: hidden; /* Ensures content respects border-radius */
+  opacity: 0;
+  animation: slideInFromRight 0.3s forwards; /* New animation for sliding from right */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* New animation for sliding in from the right */
+@keyframes slideInFromRight {
+  from { opacity: 0; right: -10%; transform: translateY(-50%) scale(0.95); } /* Start slightly off-screen to the right */
+  to { opacity: 1; right: 20px; transform: translateY(-50%) scale(1); } /* End at target position with full opacity */
+}
+
+/* Modal Header Styles */
+.modal-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa; /* Light grey header background */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.modal-title {
+  font-size: 1.5rem; /* Larger title */
+  font-weight: 600; /* Bolder title */
+  color: #343a40; /* Darker text color */
+}
+
+.close {
+  background: none;
+  border: none;
+  font-size: 2rem; /* Larger close icon */
+  color: #6c757d; /* Muted color for close icon */
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0; /* Remove default button padding */
+  line-height: 1; /* Align 'x' correctly */
+}
+
+.close:hover {
+  color: #dc3545; /* Red on hover */
+}
+
+/* Modal Body Styles */
+.modal-body {
+  padding: 25px;
+  color: #495057; /* Standard text color */
+  font-size: 1.05rem; /* Slightly larger body text */
+}
+
+/* --- Styles for the new centered user icon --- */
+.user-icon-container {
+  text-align: center; /* Center the icon horizontally */
+  margin-bottom: 25px; /* Space below the icon */
+  padding-bottom: 15px; /* Add some internal padding below the icon */
+  border-bottom: 1px solid #e0e0e0; /* Subtle separator line */
+}
+
+.user-icon-container .fas.fa-user-circle {
+  font-size: 5rem; /* Make the icon much larger */
+  color: #000000; 
+}
+
+
+.profile-details .detail-row {
+  display: flex;
+  margin-bottom: 15px; /* Spacing between rows */
+  align-items: baseline; /* Align text at the baseline */
+}
+
+.profile-details .detail-row:last-child {
+  margin-bottom: 0; /* No margin after the last row */
+}
+
+.profile-details label {
+  font-weight: 600; /* Bolder labels */
+  color: #343a40; /* Darker color for labels */
+  width: 120px; /* Fixed width for labels for alignment */
+  flex-shrink: 0; /* Prevent label from shrinking */
+  margin-right: 15px; /* Space between label and value */
+}
+
+.profile-details span {
+  flex-grow: 1; /* Allow value to take remaining space */
+  word-break: break-word; /* Ensure long text wraps */
+}
+
+.text-center.text-muted {
+  padding: 20px 0;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Modal Footer Styles */
+.modal-footer {
+  padding: 15px 25px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end; /* Align button to the right */
+  background-color: #f8f9fa; /* Light grey footer background */
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px; /* Slightly more rounded buttons */
+  transition: all 0.2s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+  transform: translateY(-2px); /* Subtle lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .modal-dialog {
+    width: 95%; /* Wider on very small screens */
+    right: 2.5%; /* Adjust right margin for small screens */
+    max-width: none; /* Remove max-width on small screens if it's acting as a full-width overlay */
+  }
+
+  .modal-header, .modal-body, .modal-footer {
+    padding: 15px 20px;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .profile-details label {
+    width: 100px; /* Adjust label width for smaller screens */
+    margin-right: 10px;
+  }
+
+  .close {
+    font-size: 1.75rem;
+  }
+}

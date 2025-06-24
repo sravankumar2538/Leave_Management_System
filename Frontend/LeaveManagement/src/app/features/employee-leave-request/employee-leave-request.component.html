@@ -1,0 +1,98 @@
+<div class="body">
+  <div class="container">
+    <div class="form-container">
+      <h3 class="form-title">Leave Request Form</h3>
+
+      <form id="leaveForm" (ngSubmit)="triggerSubmitLeaveRequestConfirmation()" #leaveFormRef="ngForm">
+        <div class="form-item">
+          <label for="leaveType" class="form-label">Leave Type</label>
+          <select
+            id="leaveType"
+            class="form-input"
+            [(ngModel)]="leaveFormModel.leaveType"
+            name="leaveType"
+            required
+            #leaveType="ngModel"
+            [ngClass]="{
+              'is-invalid': leaveType.invalid && (leaveType.dirty || leaveType.touched)
+            }"
+          >
+            <option value="" disabled selected>Select leave type</option>
+            <option value="Casual">Casual</option>
+            <option value="Sick">Sick</option>
+            <option value="Vacation">Vacation</option>
+            <option value="Medical">Medical</option>
+          </select>
+          <div
+            *ngIf="leaveType.invalid && (leaveType.dirty || leaveType.touched)"
+            class="validation-message"
+          >
+            <div *ngIf="leaveType.errors?.['required']">Leave Type is required.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-item">
+            <label for="fromDate" class="form-label">From</label>
+            <input
+              type="date"
+              id="fromDate"
+              class="form-input"
+              [(ngModel)]="leaveFormModel.startDate"
+              name="fromDate"
+              required
+              #fromDate="ngModel"
+              [max]="leaveFormModel.endDate"
+              [ngClass]="{
+                'is-invalid': fromDate.invalid && (fromDate.dirty || fromDate.touched)
+              }"
+            />
+            <div
+              *ngIf="fromDate.invalid && (fromDate.dirty || fromDate.touched)"
+              class="validation-message"
+            >
+              <div *ngIf="fromDate.errors?.['required']">From Date is required.</div>
+              <div *ngIf="fromDate.errors?.['max']">From Date cannot be after To Date.</div>
+            </div>
+          </div>
+          <div class="form-item">
+            <label for="toDate" class="form-label">To</label>
+            <input
+              type="date"
+              id="toDate"
+              class="form-input"
+              [(ngModel)]="leaveFormModel.endDate"
+              name="toDate"
+              required
+              #toDate="ngModel"
+              [min]="leaveFormModel.startDate"
+              [ngClass]="{
+                'is-invalid': toDate.invalid && (toDate.dirty || toDate.touched)
+              }"
+            />
+            <div
+              *ngIf="toDate.invalid && (toDate.dirty || toDate.touched)"
+              class="validation-message"
+            >
+              <div *ngIf="toDate.errors?.['required']">To Date is required.</div>
+              <div *ngIf="toDate.errors?.['min']">To Date cannot be before From Date.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button
+            type="submit"
+            class="submit-button"
+            [disabled]="leaveFormRef.invalid || isLoading"
+          >
+            <i class="fas fa-paper-plane"></i> Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add the PopupComponent for submit confirmation -->
+<app-popup #submitConfirmPopup></app-popup>

@@ -1,0 +1,28 @@
+<div class="col-12">
+    <div class="card card-dark h-100">
+      <div class="card-header card-header-dark">Holiday Calendar</div>
+      <div class="card-body">
+  
+        <div *ngIf="isLoading" class="text-center my-3">
+          <i class="fas fa-spinner fa-spin me-2"></i> Loading holidays...
+        </div>
+  
+        <div *ngIf="hasError" class="alert alert-danger text-center my-3" role="alert">
+          <i class="fas fa-exclamation-triangle me-2"></i> {{ errorMessage }}
+        </div>
+  
+        <div class="holiday-list" *ngIf="!isLoading && !hasError && holidayCalendarData.length > 0">
+          <div class="holiday-item" *ngFor="let holiday of holidayCalendarData; let i = index"
+               [style.animation-delay]="(i * 0.2 + 0.5) + 's'">
+            <span class="holiday-date">{{ holiday.date | date:'dd-MM-yyyy' }}</span>
+            <span class="holiday-name">{{ holiday.description }}</span>
+          </div>
+        </div>
+  
+        <div *ngIf="!isLoading && !hasError && holidayCalendarData.length === 0" class="text-center my-3">
+          <i class="fas fa-info-circle me-2"></i> No upcoming holidays found.
+        </div>
+  
+      </div>
+    </div>
+  </div>

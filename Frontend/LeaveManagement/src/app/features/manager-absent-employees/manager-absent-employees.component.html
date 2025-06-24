@@ -1,0 +1,85 @@
+<div class="body">
+  <div class="body-wrapper">
+
+    <!-- Main content area, adjusted for top margin to avoid overlap with fixed navbar -->
+    <div class="content-area">
+      <div class="page-container">
+        <div class="card-dark">
+          <div class="employee-table-wrapper">
+
+            <!-- Search Bar and Pagination Size Control -->
+            <div class="search-controls-row">
+              <div class="search-bar-container">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input type="text"
+                       [(ngModel)]="searchTerm"
+                       (ngModelChange)="applyFilter()"
+                       placeholder="Search by name, email or role..."
+                       class="search-input">
+              </div>
+              <!-- Items per page selector -->
+            </div>
+
+            <!-- Loading Message -->
+            <div *ngIf="isLoading" class="info-message text-center">
+              Loading employees...
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="hasError" class="error-message text-center">
+              <strong>Error:</strong> {{ errorMessage }}
+            </div>
+
+            <!-- No Data Message (for both initial load and after filtering) -->
+            <div *ngIf="!isLoading && !hasError && filteredEmployees.length === 0" class="info-message text-center">
+              No employees found matching your criteria.
+            </div>
+
+            <!-- Employee Table -->
+            <table *ngIf="!isLoading && !hasError && paginatedEmployees.length > 0" class="employee-table">
+              <thead>
+                <tr>
+                  <th class="col-employee-id">Employee ID</th>
+                  <th class="col-first-name">First Name</th>
+                  <th class="col-last-name">Last Name</th>
+                  <th class="col-email">Email</th>
+                  <th class="col-role">Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through paginatedEmployees to display each employee -->
+                <tr *ngFor="let employee of paginatedEmployees; let i = index"
+                    [style.animation-delay.s]="0.1 * i">
+                  <td>{{ employee.employeeId }}</td>
+                  <td>{{ employee.firstName }}</td>
+                  <td>{{ employee.lastName }}</td>
+                  <td>{{ employee.email }}</td>
+                  <td>{{ employee.role }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Pagination Controls -->
+            <div *ngIf="!isLoading && !hasError && filteredEmployees.length > 0 && totalPages > 1" class="pagination-controls-custom">
+              <button class="pagination-btn-custom" (click)="goToPage(1)" [disabled]="currentPage === 1">First</button>
+              <button class="pagination-btn-custom" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+
+              <div class="page-numbers-custom">
+                <button *ngFor="let page of pages"
+                        class="page-number-btn-custom"
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                  {{ page }}
+                </button>
+              </div>
+
+              <button class="pagination-btn-custom" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+              <button class="pagination-btn-custom" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">Last</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

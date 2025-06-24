@@ -1,0 +1,41 @@
+<div class="body-wrapper">
+
+    <div class="content-area">
+        <div class="page-container">
+            <div class="card-dark">
+                <div class="card-header-dark">Today's Present Employees</div>
+
+                <div class="employee-table-wrapper">
+                    <div *ngIf="isLoading" class="info-message text-center">
+                        Loading today's present employees...
+                    </div>
+
+                    <div *ngIf="hasError" class="error-message app-error-message text-center">
+                        {{ errorMessage }} 
+                    </div>
+
+
+                    <table *ngIf="!isLoading && !hasError && employeeResponseData.length > 0" class="employee-table">
+                        <thead>
+                            <tr>
+                                <th class="col-employee-id" style="font-weight: bold;">Employee ID</th>
+                                <th class="col-first-name" style="font-weight: bold;">First Name</th>
+                                <th class="col-last-name" style="font-weight: bold;">Last Name</th>
+                                <th class="col-role" style="font-weight: bold;">Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let employee of employeeResponseData; let i = index"
+                                [style.animation-delay.s]="0.1 * i">
+                                <td>{{ employee.employeeId }}</td>
+                                <td>{{ employee.firstName }}</td>
+                                <td>{{ employee.lastName }}</td>
+                                <td>{{ employee.role }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

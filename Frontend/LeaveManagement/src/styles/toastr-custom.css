@@ -1,0 +1,284 @@
+/* src/styles/toastr-custom.css */
+
+/* Keyframe Animations */
+/*
+ * fadeInRightBig: The toast slides in from the right, starting completely off-screen.
+ * Adjusted for a smooth, noticeable entry from the page edge.
+ */
+ @keyframes fadeInRightBig {
+    from {
+      opacity: 0;
+      transform: translateX(100vw); /* Starts completely off-screen to the right */
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /*
+   * fadeOutLeftBig: The exit animation, slides out to the left, going completely off-screen.
+   * Adjusted for a smooth, noticeable exit to the page edge.
+   */
+  @keyframes fadeOutLeftBig {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100vw); /* Moves completely off-screen to the left */
+    }
+  }
+  
+  /* --- */
+  
+  /* General toast styling */
+  .toast {
+    background-color: #2c3e50; /* A modern, deep slate-grey for a premium feel */
+    opacity: 1 !important; /* Ensure full visibility */
+    border-radius: 8px; /* Less rounded corners for a simpler, more streamlined look */
+    /*
+     * Simplified box-shadow for a cleaner, flatter appearance.
+     * Less depth for a more modern, minimal aesthetic.
+     */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; /* Simplified shadow */
+    padding: 12px 25px; /* Decreased vertical padding (height) and maintained horizontal for width */
+    font-family: 'Inter', sans-serif; /* Continues to use a modern, clean font */
+    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out; /* Faster, simpler transitions */
+    animation: fadeInRightBig 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* **Slower animation duration (1.2s)** */
+    transform-origin: center right; /* Adjusted for right-side entry animation */
+    color: #e9ecef; /* Soft off-white text for high contrast on dark backgrounds */
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  
+    /* Responsive dimensions - Increased width */
+    width: 90%; /* Occupy 90% of the parent width */
+    max-width: 500px; /* Increased maximum width for a wider toast */
+    min-height: 50px; /* Added minimum height to ensure content fits cleanly */
+    box-sizing: border-box;
+  }
+  
+  /* Exit animation class - needs to be applied by JavaScript when toast is closing */
+  .toast-leaving {
+    animation: fadeOutLeftBig 1.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; /* **Slower animation duration (1.2s)** */
+  }
+  
+  /* --- */
+  
+  /* Specific styling for toast types - with distinct accent borders */
+  .toast-success {
+    background-color: #27ae60;
+    border-left: 5px solid #229a56; /* Slightly thinner accent border for simplicity */
+  }
+  
+  .toast-error {
+    background-color: #c0392b;
+    border-left: 5px solid #a93226; /* Slightly thinner accent border for simplicity */
+  }
+  
+  .toast-info {
+    background-color: #2980b9;
+    border-left: 5px solid #246d9a; /* Slightly thinner accent border for simplicity */
+  }
+  
+  .toast-warning {
+    background-color: #f1c40f;
+    color: #343a40;
+    border-left: 5px solid #d4ac0d; /* Darker shade for accent */
+  }
+  
+  /* --- */
+  
+  /* Toast title styling */
+  .toast-title {
+    font-weight: 800;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+    color: inherit;
+    text-shadow: none;
+  }
+  
+  /* Toast message styling */
+  .toast-message {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: inherit;
+    font-weight: 500;
+  }
+  
+  /* --- */
+  
+  /* Close button styling */
+  .toast-close-button {
+    color: #f8f9fa;
+    font-size: 1.4em;
+    opacity: 0.7;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  .toast-close-button:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  /* --- */
+  
+  /* Progress bar styling */
+  /* Keyframe for shimmer effect */
+  @keyframes progressShimmer {
+    0% {
+      background-position: -200% 0; /* Start the shimmer far off to the left */
+    }
+    100% {
+      background-position: 200% 0; /* Move the shimmer far off to the right */
+    }
+  }
+  
+  /* Progress bar styling */
+  .toast-progress {
+    background-color: rgba(255, 255, 255, 0.55); /* Increased opacity for more prominence */
+    height: 4px; /* Decreased height for a sleeker bar */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom-left-radius: 8px; /* Match toast border-radius */
+    border-bottom-right-radius: 8px; /* Match toast border-radius */
+    overflow: hidden; /* Crucial to contain the shimmer within the bar's bounds */
+  
+    /* Ultimate Animation Effects */
+    /* This ensures smooth transitions if the width is animated by JavaScript (e.g., from 0% to 100%) */
+    transition: width 0.3s ease-out;
+  
+    /* Adding a subtle animated gradient shimmer */
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%, /* Transparent start */
+      rgba(255, 255, 255, 0.1) 25%, /* Subtle light */
+      rgba(255, 255, 255, 0.3) 50%, /* Peak of shimmer */
+      rgba(255, 255, 255, 0.1) 75%, /* Subtle light */
+      rgba(255, 255, 255, 0) 100% /* Transparent end */
+    );
+    background-size: 200% 100%; /* Make the gradient wider than the bar to allow full movement */
+    background-repeat: no-repeat; /* Ensure the gradient doesn't tile */
+    animation: progressShimmer 2s infinite linear; /* Apply the shimmer animation */
+    background-position: -100% 0; /* Initial position of the gradient */
+  }
+  
+  /* --- */
+  
+  /* Adjust position if needed */
+  .toast-top-right {
+    top: 80px; /* Adjusted slightly higher for a cleaner top margin */
+    right: 20px; /* Slightly reduced right spacing */
+    /* No 'left' property here, as we want it fixed to the right edge */
+    /* Ensure it's not restricted by parent widths on desktop */
+    position: fixed; /* Use fixed positioning for toasts to always stay in viewport */
+  }
+  
+  /* --- */
+  
+  /* Optional: Add a subtle hover effect to the entire toast */
+  .toast:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08) inset; /* Subtler shadow on hover */
+    transform: translateY(-2px) scale(1.002); /* Subtler lift and scale */
+  }
+  
+  /* Optional: Add a subtle active/click effect for tactile feedback */
+  .toast:active {
+    transform: translateY(0) scale(0.998); /* Even more subtle "press down" */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  }
+  
+  /* ==========================================================================
+     Media Queries for Responsiveness (Adjusted for new base styles)
+     ========================================================================== */
+  
+  @media (max-width: 768px) {
+    .toast {
+      padding: 10px 20px; /* Reduced vertical padding */
+      max-width: 90%; /* Allow wider relative to screen size */
+    }
+  
+    .toast-close-button {
+      font-size: 1.3em;
+      right: 12px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .toast {
+      width: 95%;
+      max-width: none;
+      padding: 10px 15px; /* Further reduced padding */
+      border-radius: 6px; /* Even less rounded for very small screens */
+    }
+  
+    .toast-title {
+      font-size: 1em;
+      margin-bottom: 3px;
+    }
+  
+    .toast-message {
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+  
+    .toast-close-button {
+      font-size: 1.2em;
+      right: 10px;
+    }
+  
+    .toast-top-right {
+      top: 60px; /* Bring it higher */
+      right: 10px;
+      left: 10px; /* This will make it centered-ish with left/right spacing */
+      width: auto; /* Allow width to be determined by content/max-width */
+    }
+  
+    /* Adjust entry/exit animations for smaller screens */
+    @keyframes fadeInRightBig {
+      from {
+        opacity: 0;
+        transform: translateX(100vw); /* Still starts completely off-screen */
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  
+    @keyframes fadeOutLeftBig {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-100vw); /* Still moves completely off-screen */
+      }
+    }
+  
+    .toast-progress {
+      height: 3px; /* Slightly thinner progress bar */
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .toast-top-right {
+      right: 5px;
+      left: 5px;
+    }
+  
+    .toast {
+      padding: 8px 10px; /* Minimal padding for tiny screens */
+    }
+  }

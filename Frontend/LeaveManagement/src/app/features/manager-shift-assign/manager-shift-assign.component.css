@@ -1,0 +1,309 @@
+/* Your provided CSS, slightly adjusted for Bootstrap integration and clarity */
+
+html, body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #f0f2f5; /* Light background for the whole page */
+    font-family: 'Inter', sans-serif; /* Using Inter font as per guidelines */
+}
+
+.body {
+    background: #ffffff; /* Light background for the main content area */
+    min-height: 100%; /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column; /* To allow stacking of elements like navbar and content */
+    color: #333333; /* Dark text color for contrast on white background */
+    margin-top: 40px; /* Your specified margin-top */
+}
+
+.container {
+    /* Bootstrap's d-flex, justify-content-center, align-items-center, min-vh-100 handle the centering */
+    padding: 15px; /* Slightly reduced overall padding around the form from 20px to 15px */
+}
+
+.form-container {
+    background: #ffffff; /* Solid white background */
+    padding: 30px; /* Reduced vertical padding from 40px to 30px */
+    border-radius: 15px; /* Even more rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Prominent, soft shadow */
+    width: 90%; /* Take up 90% of the container width */
+    max-width: 600px; /* Adjusted max-width to better fit the single-column layout of the image */
+    margin: auto; /* Center the form container horizontally */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    animation: fadeInScale 0.8s ease-out; /* Animation for entry */
+}
+
+.form-title {
+    color: #2c3e50; /* Darker, professional blue-gray */
+    text-align: center;
+    margin-bottom: 25px; /* Slightly reduced from 30px */
+    border-bottom: 2px solid #e0e0e0; /* Slightly thicker border */
+    padding-bottom: 15px; /* Slightly reduced from 20px */
+    font-size: 2.1rem; /* Slightly reduced from 2.2rem */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.form-item {
+    margin-bottom: 20px; /* Slightly reduced from 25px */
+}
+
+.form-label {
+    color: #34495e; /* Darker gray for labels */
+    display: block;
+    margin-bottom: 8px; /* Slightly reduced from 10px */
+    font-weight: 600;
+    font-size: 1.05rem; /* Slightly reduced from 1.1rem */
+}
+
+/* Overriding Bootstrap's default input styles for custom look */
+.form-input.form-control,
+.form-input.form-select {
+    width: 100%;
+    padding: 12px; /* Slightly reduced from 14px */
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 8px; /* More rounded input fields */
+    background-color: #f8f8f8; /* Very light gray input background */
+    color: #333333;
+    box-sizing: border-box;
+    font-size: 0.95rem; /* Slightly reduced from 1rem */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    position: relative; /* Added to make positioning of inner elements relative to this */
+    /* Ensure native dropdown arrow is on the right for selects */
+    -webkit-appearance: none; /* Remove default Safari/Chrome dropdown arrow */
+    -moz-appearance: none; /* Remove default Firefox dropdown arrow */
+    appearance: none; /* Remove default dropdown arrow */
+    /* Add a custom dropdown arrow to selects */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.form-input.form-control:focus,
+.form-input.form-select:focus {
+    border-color: #3498db; /* Bright blue on focus */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); /* Blue glow on focus */
+    background-color: #ffffff; /* White background on focus */
+}
+
+/* Validation styles for form-input and form-select */
+/* This general rule for .is-invalid will apply to both input and select */
+.form-input.is-invalid,
+.form-select.is-invalid {
+    border-color: #e74c3c; /* Red border for invalid fields */
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2); /* Red glow for invalid fields */
+    /* Standard padding and error icon positioning */
+    padding-right: 40px; /* Adjust as needed, e.g., 40px or 45px */
+    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 12%27 width=%2712%27 height=%2712%27 fill=%27none%27 stroke=%27%23dc3545%27%3e%3ccircle cx=%276%27 cy=%276%27 r=%274.5%27/%3e%3cpath stroke-linejoin=%27round%27 d=%27M5.8 3.6h.4L6 6.5z%27/%3e%3ccircle cx=%276%27 cy=%278.2%27 r=%27.6%27 fill=%27%23dc3545%27 stroke=%27none%27/%3e%3c/svg%3e'); /* Error icon SVG */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Position the error icon */
+    background-size: 16px 16px; /* Size the error icon */
+}
+
+/* Specific adjustment for date input's calendar icon when invalid */
+.form-input.form-control[type="date"].is-invalid {
+    padding-right: 60px; /* More padding for date input when invalid */
+    background-position: right 30px center; /* Shift error icon left to accommodate native calendar icon */
+}
+
+/* Specific adjustment for select element's dropdown arrow when invalid */
+.form-select.is-invalid {
+    /* If you kept native arrow: padding-right: 60px; background-position: right 30px center; */
+    /* With custom arrow (defined above): adjust padding and icon position to avoid clash */
+    padding-right: 60px; /* More padding to make space for both the custom arrow and error icon */
+    /* Adjusting both backgrounds */
+    background-image:
+        url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 12%27 width=%2712%27 height=%2712%27 fill=%27none%27 stroke=%27%23dc3545%27%3e%3ccircle cx=%276%27 cy=%276%27 r=%274.5%27/%3e%3cpath stroke-linejoin=%27round%27 d=%27M5.8 3.6h.4L6 6.5z%27/%3e%3ccircle cx=%276%27 cy=%278.2%27 r=%27.6%27 fill=%27%23dc3545%27 stroke=%27none%27/%3e%3c/svg%3e'), /* Error icon */
+        url('data:image/svg+xml;utf8,<svg fill="%23333333" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Custom dropdown arrow */
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 30px center, right 10px center; /* Error icon 30px from right, arrow 10px from right */
+    background-size: 16px 16px, 20px 20px; /* Error icon size, arrow size */
+}
+
+
+.validation-message {
+    color: #e74c3c; /* Red text for validation messages */
+    font-size: 0.85rem;
+    margin-top: 0.5rem; /* Space below the invalid input */
+}
+
+.form-input.form-control::placeholder {
+    color: #95a5a6; /* Lighter placeholder text */
+}
+
+/* No form-row needed as the image shows a single column layout */
+.form-row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.form-row .form-item {
+    flex: 1;
+    min-width: 300px;
+} 
+
+.button-group {
+    display: flex;
+    gap: 15px; /* Slightly reduced from 20px */
+    margin-top: 30px; /* Slightly reduced from 40px */
+    justify-content: flex-end; /* Aligns buttons to the right (default for larger screens) */
+}
+
+.submit-button,
+.history-button {
+    padding: 12px 25px; /* Slightly reduced from 15px 30px */
+    border: none;
+    border-radius: 10px; /* More rounded buttons */
+    cursor: pointer;
+    font-size: 1.05rem; /* Slightly reduced from 1.15rem */
+    font-weight: 700;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    flex-grow: 0; /* Prevents buttons from stretching excessively */
+    flex-shrink: 0;
+    display: flex; /* For icon alignment */
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-button {
+    background-color: #2ecc71; /* Vibrant green */
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+.history-button {
+    background-color: #95a5a6; /* Muted gray */
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(149, 165, 166, 0.3);
+}
+
+.submit-button:hover {
+    background-color: #29b162; /* Darker green on hover */
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+    transform: translateY(-3px); /* Pronounced lift effect */
+}
+
+.history-button:hover {
+    background-color: #7f8c8d; /* Darker gray on hover */
+    box-shadow: 0 8px 20px rgba(149, 165, 166, 0.4);
+    transform: translateY(-3px); /* Pronounced lift effect */
+}
+
+.submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.submit-button i,
+.history-button i {
+    margin-right: 8px; /* Slightly reduced from 10px */
+    font-size: 1.1rem; /* Slightly reduced from 1.2rem */
+}
+
+/* Ultimate Animation Effects (in addition to your fadeInScale and button hovers) */
+
+/* Input Field Slide-in */
+.form-item {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    opacity: 0; /* Start hidden */
+}
+
+.form-item:nth-child(1) { animation-delay: 0.1s; }
+.form-item:nth-child(2) { animation-delay: 0.2s; }
+.form-item:nth-child(3) { animation-delay: 0.3s; }
+/* Add more for additional items if you expand the form */
+
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Button Pulse on Load */
+.submit-button, .history-button {
+    animation: buttonPulse 1.5s infinite alternate ease-in-out;
+    animation-delay: 1s; /* Start after form loads */
+}
+
+.history-button {
+    animation-delay: 1.2s; /* Slightly delay the second button */
+}
+
+@keyframes buttonPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Form Container Entry Animation */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* No form-row in this layout, so these are not strictly necessary but kept for consistency if you decide to add rows */
+     .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-item {
+        min-width: unset;
+    } 
+
+    .button-group {
+        display: flex; /* Ensure flexbox is active */
+        justify-content: center; /* Center the button */
+        margin-top: 20px; /* Add some top margin for spacing */
+    }
+
+    .form-container {
+        padding: 20px; /* Reduced padding on small screens further */
+        width: 95%; /* Take up more width on small screens */
+    }
+
+    .form-title {
+        font-size: 1.7rem; /* Slightly reduced further */
+        margin-bottom: 15px; /* Slightly reduced further */
+    }
+
+    .submit-button,
+    .history-button {
+        padding: 10px 18px; /* Reduced further */
+        font-size: 0.95rem; /* Reduced further */
+        width: 100%; /* Make the button full width for better touch targets */
+        max-width: 300px; /* Optionally set a max width */
+    }
+}
+
+@media (max-width: 576px) {
+    .submit-button,
+    .history-button {
+        font-size: 0.9rem; /* Further adjust font size for very small screens */
+        padding: 8px 15px;
+    }
+}

@@ -1,0 +1,96 @@
+/* Card Styling (shared with other cards, but essential for Actions card) - White Theme */
+.card-dark {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 400px; /* Increased width from 350px to 380px */
+    padding: 15px; /* Added padding to control internal spacing, helps manage height */
+    max-height: 250px; /* Added a max-height to visually decrease height */
+    overflow-y: auto; /* Add scroll if content exceeds max-height */
+  }
+  
+  .card-dark:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow on hover */
+  }
+  
+  .card-header-dark {
+    background-color: #f8f8f8; /* Light grey header for cards */
+    color: #333333; /* Darker text for header */
+    font-weight: 700; /* Made text bold */
+    border-bottom: 1px solid #e0e0e0; /* Light border at the bottom of the header */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  /* Action Button Styling - White Theme */
+  .action-button {
+    width: 100%;
+    padding: 12px; /* Adjusted padding for buttons (content inside card) */
+    font-size: 1rem; /* Adjusted font size for buttons (content inside card) */
+    font-weight: 700; /* Made text bold */
+    border-radius: 8px;
+    margin-bottom: 10px; /* Adjusted margin for buttons (content inside card) */
+    /* Ensure all relevant properties transition smoothly */
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.15s ease;
+    color: white; /* Keep text white for better contrast on colored buttons */
+    border: none; /* Ensure no default button border interferes */
+    cursor: pointer; /* Indicate it's clickable */
+    outline: none; /* Remove outline on focus, if desired (be mindful of accessibility) */
+  }
+  
+  .action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Lighter shadow on hover */
+    color: white; /* Explicitly keep text white on hover */
+  }
+  
+  .action-button:active {
+    transform: translateY(1px); /* Push button down slightly more to simulate a press */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); /* Even smaller/lower shadow for 'pressed in' look */
+    /* Background colors will be set by the specific classes below */
+  }
+  
+  .action-button-clock-in {
+    background-color: #007bff; /* Blue for Clock In */
+  }
+  .action-button-clock-in:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  .action-button-clock-in:active {
+    background-color: #007bff; /* Keep original blue on active (pressed) */
+  }
+  
+  .action-button-clock-out {
+    background-color: #dc3545; /* Red for Clock Out */
+  }
+  .action-button-clock-out:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  .action-button-clock-out:active {
+    background-color: #dc3545; /* Keep original red on active (pressed) */
+  }
+  
+  /* Responsive adjustment specific to cards */
+  @media (max-width: 768px) {
+    .card-dark {
+      margin-bottom: 25px; /* Add margin for stacking cards on small screens */
+      width: 95%; /* Increased width percentage for smaller screens */
+      max-width: 320px; /* Adjusted max width on small screens */
+      padding: 10px; /* Reduced padding on small screens */
+      max-height: 220px; /* Adjusted max-height for small screens */
+    }
+  
+    /* Responsive adjustments for action buttons inside cards */
+    .action-button {
+      padding: 10px; /* Adjust button padding for small screens */
+      font-size: 0.9rem; /* Smaller font for buttons */
+      margin-bottom: 8px; /* Less margin for buttons */
+    }
+  }
+  
+  .body {
+    margin-top: 30px;
+  }

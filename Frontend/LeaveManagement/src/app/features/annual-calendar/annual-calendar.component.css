@@ -1,0 +1,183 @@
+html, body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #ffffff; /* Light background for the whole page */
+    font-family: 'Inter', sans-serif; /* Using Inter font as per guidelines */
+}
+
+.body {
+    background: #ffffff; /* Light background for the main content area */
+    min-height: 100%; /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column; /* To allow stacking of elements like navbar and content */
+    color: #333333; /* Dark text color for contrast on white background */
+    margin-top: 85px; /* Added margin-top to account for fixed navbar */
+}
+
+.employee-navbar-container {
+    background-color: #ffffff; /* White background for navbar */
+    color: #333333; /* Dark text for contrast */
+    padding: 15px 30px; /* Slightly more padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 0 0 10px 10px; /* More rounded bottom corners */
+    display: flex; /* To align content within navbar if needed */
+    align-items: center;
+    justify-content: space-between;
+    position: fixed; /* Keep navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.page-body {
+    flex-grow: 1; /* Allows this section to take up remaining vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top, not center, to allow content flow */
+    padding: 30px; /* Padding around the content */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.holiday-calendar-container {
+    background-color: #ffffff; /* White background for the calendar container */
+    padding: 30px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    width: 100%;
+    max-width: 800px; /* Max width for the calendar */
+    box-sizing: border-box;
+    animation: fadeInScale 0.8s ease-out; /* Animation for entry */
+}
+
+.calendar-title {
+    color: #007bff; /* Vibrant blue for title */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: bold; /* Made bold */
+    letter-spacing: 0.5px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #a7d9ff; /* Lighter blue separator line */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+}
+
+.calendar-table-wrapper {
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    width: 100%;
+}
+
+.holiday-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders between cells */
+    margin-top: 20px;
+}
+
+.holiday-table th,
+.holiday-table td {
+    padding: 15px; /* Ample padding for readability */
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0; /* Light separator for rows */
+    font-weight: bold; /* Made all table text bold */
+}
+
+.table-header {
+    background-color: #e6f2ff; /* Very light blue background for headers */
+    color: #0056b3; /* Darker blue for header text */
+    font-weight: bold; /* Already bold, ensuring it */
+    font-size: 1.1rem;
+    position: sticky; /* Keep headers visible on scroll */
+    top: 0;
+    z-index: 1; /* Ensure header is above table content */
+    animation: slideInTop 0.5s ease-out forwards; /* Animation for header */
+}
+
+.holiday-table tbody tr:last-child td {
+    border-bottom: none; /* No border on the last row */
+}
+
+.holiday-table tbody tr {
+    animation: fadeInRow 0.6s ease-out forwards; /* Animation for each row */
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Start slightly below */
+}
+
+/* Delay animation for successive rows */
+.holiday-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.holiday-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.holiday-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.holiday-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.holiday-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+.holiday-table tbody tr:nth-child(6) { animation-delay: 0.6s; }
+/* Add more :nth-child rules if you have more static rows */
+
+
+.holiday-table tbody tr:hover {
+    background-color: #f0f8ff; /* Even lighter blue on row hover */
+    transition: background-color 0.3s ease;
+}
+
+.table-data {
+    color: #333333; /* Darker text for data for better contrast */
+    font-size: 1rem;
+    font-weight: bold; /* Made bold */
+}
+
+/* Animations */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-body {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    .holiday-calendar-container {
+        padding: 20px;
+    }
+
+    .calendar-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .holiday-table th,
+    .holiday-table td {
+        padding: 10px; /* Reduce padding for smaller screens */
+        font-size: 0.9rem;
+    }
+}

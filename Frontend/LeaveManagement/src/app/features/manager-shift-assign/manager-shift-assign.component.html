@@ -1,0 +1,54 @@
+<div class="body">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="form-container">
+            <h2 class="form-title">Assign Shift</h2>
+            <form (ngSubmit)="AssignShifts()" #assignShiftFormRef="ngForm">
+                <div class="form-item">
+                    <label for="employeeId" class="form-label">Employee ID</label>
+                    <select class="form-select form-input" id="employeeId" name="employeeId"
+                            [(ngModel)]="selectedEmployeeId" required
+                            #employeeIdRef="ngModel"
+                            [ngClass]="{ 'is-invalid': employeeIdRef.invalid && (employeeIdRef.dirty || employeeIdRef.touched) }">
+                        <option [ngValue]="null" disabled selected>Select Employee ID</option>
+                        <option *ngFor="let employee of employeeResponseData" [ngValue]="employee.employeeId">
+                            {{ employee.employeeId }} - {{ employee.firstName }} {{ employee.lastName }}
+                        </option>
+                    </select>
+                    <div *ngIf="employeeIdRef.invalid && (employeeIdRef.dirty || employeeIdRef.touched)" class="validation-message">
+                        <div *ngIf="employeeIdRef.errors?.['required']">Employee ID is required.</div>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control form-input" id="date" name="date"
+                           [(ngModel)]="selectedDate" required
+                           #dateRef="ngModel"
+                           [ngClass]="{ 'is-invalid': dateRef.invalid && (dateRef.dirty || dateRef.touched) }">
+                    <div *ngIf="dateRef.invalid && (dateRef.dirty || dateRef.touched)" class="validation-message">
+                        <div *ngIf="dateRef.errors?.['required']">Date is required.</div>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label for="shiftTime" class="form-label">Shift Time</label>
+                    <select class="form-select form-input" id="shiftTime" name="shiftTime"
+                            [(ngModel)]="selectedShiftTime" required
+                            #shiftTimeRef="ngModel"
+                            [ngClass]="{ 'is-invalid': shiftTimeRef.invalid && (shiftTimeRef.dirty || shiftTimeRef.touched) }">
+                        <option [ngValue]="null" disabled selected>Select Shift Time</option>
+                        <option value="Morning">Morning Shift (6 AM - 2 PM)</option>
+                        <option value="Afternoon">Afternoon Shift (2 PM - 10 PM)</option>
+                        <option value="Night">Night Shift (10 PM - 6 AM)</option>
+                    </select>
+                    <div *ngIf="shiftTimeRef.invalid && (shiftTimeRef.dirty || shiftTimeRef.touched)" class="validation-message">
+                        <div *ngIf="shiftTimeRef.errors?.['required']">Shift Time is required.</div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="submit-button" [disabled]="assignShiftFormRef.invalid">
+                        <i class="fas fa-calendar-check"></i> Assign
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

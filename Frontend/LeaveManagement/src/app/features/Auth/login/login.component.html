@@ -1,0 +1,58 @@
+<div class="login-container">
+  <div class="login-box">
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="mb-3">
+        <label for="email" class="form-label visually-hidden">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"></span>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="loginRequest.email"
+            placeholder="Enter your email"
+            required
+            email
+            #emailInput="ngModel"
+            [class.is-invalid]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+            [class.is-valid]="emailInput.valid && (emailInput.dirty || emailInput.touched)"
+          >
+          <span class="input-group-text" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"><i class="fas fa-times text-danger"></i></span>
+        </div>
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="invalid-feedback d-block">
+          <div *ngIf="emailInput.errors?.['required']">Email is required.</div>
+          <div *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label visually-hidden">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"></span>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="loginRequest.password"
+            placeholder="Enter your password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+            [class.is-invalid]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+            [class.is-valid]="passwordInput.valid && (passwordInput.dirty || passwordInput.touched)"
+          >
+          <span class="input-group-text" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"><i class="fas fa-times text-danger"></i></span>
+        </div>
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="invalid-feedback d-block">
+          <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+          <div *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters long.</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success login-button" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>

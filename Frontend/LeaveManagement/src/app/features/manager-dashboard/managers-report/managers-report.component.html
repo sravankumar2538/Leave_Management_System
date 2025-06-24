@@ -1,0 +1,49 @@
+<div class="body">
+    <div class="form-page-container flex justify-center">
+      <div class="date-form-card w-4/5">
+        <div class="grid grid-cols-2 gap-4 w-full">
+          <!-- Pending Leaves Button -->
+          <button class="col-span-1 form-group" (click)="goToLeaveRequest()">
+            <div class="form-label">Pending Leaves</div>
+            <div class="date-input-wrapper">
+              <div class="value" [ngClass]="getPendingLeavesTextColorClass()">
+                {{ currentReport?.pendingLeaveRequest ?? 0 }}
+              </div>
+            </div>
+          </button>
+  
+          <!-- Pending Swaps Button -->
+          <button class="col-span-1 form-group" (click)="goToSwapRequest()">
+            <div class="form-label">Pending Swaps</div>
+            <div class="date-input-wrapper">
+              <div class="value" [ngClass]="getPendingSwapsTextColorClass()">
+                {{ currentReport?.pendingSwapRequest ?? 0 }}
+              </div>
+            </div>
+          </button>
+  
+          <!-- Total Employees Button -->
+          <button class="col-span-1 form-group" (click)="goToEmployees()">
+            <div class="form-label">Total Employees</div>
+            <div class="date-input-wrapper">
+              <div class="value" [ngClass]="getTotalEmployeesTextColorClass()">
+                {{ currentReport?.totalEmployees ?? 0 }}
+              </div>
+            </div>
+          </button>
+  
+          <!-- Absent Employees Button -->
+          <button class="col-span-1 form-group" (click)="goToAbsentEmployees()">
+            <div class="form-label">Absent Employees</div>
+            <div class="date-input-wrapper">
+              <div class="value" [ngClass]="getAbsentEmployeesTextColorClass()">
+                {{ currentReport?.absentEmployees ?? 0 }}
+              </div>
+            </div>
+          </button>
+        </div>
+  
+        
+      </div>
+    </div>
+  </div>

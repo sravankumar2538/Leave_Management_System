@@ -1,0 +1,612 @@
+html,
+body {
+    height: 100%;
+    /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #ffffff;
+    /* Light background for the whole page */
+    font-family: 'Inter', sans-serif;
+    /* Using Inter font as per guidelines */
+}
+
+.body {
+    background: #ffffff;
+    /* Light background for the main content area */
+    min-height: 100%;
+    /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column;
+    /* To allow stacking of elements like navbar and content */
+    color: #333333;
+    /* Dark text color for contrast on white background */
+    margin-top: 100px;
+    /* Updated margin-top to 100px */
+    font-weight: bold;
+    /* Applied bold to general body text */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    /* Still center horizontally within the full width */
+    align-items: flex-start;
+    /* Align to the top of the container vertically */
+    flex-grow: 1;
+    /* Allows the container to take up available vertical space */
+    width: 100%;
+    /* Ensure it takes full width of its parent */
+    padding: 0;
+    /* Removed overall padding to make it full screen */
+}
+
+/* --- Table Specific Styles --- */
+.form-container {
+    background: #ffffff;
+    /* Solid white background */
+    padding: 0;
+    /* ALL PADDING REMOVED to maximize table width */
+    border-radius: 15px;
+    /* Even more rounded corners */
+    width: 100%;
+    /* Make it take 100% of the container width */
+    /* max-width was removed here to allow full width */
+    margin: auto;
+    /* Centering will still work if container is smaller, but effectively full width here */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    animation: fadeInScale 0.8s ease-out;
+    /* Animation for entry */
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    /* Enables horizontal scrolling for tables on small screens */
+}
+
+.custom-width-table {
+    width: 100%;
+    /* Ensure table takes full width of its container */
+    border-collapse: collapse;
+    /* Collapse borders for a cleaner look */
+}
+
+.table {
+    margin-bottom: 0;
+    /* Remove default Bootstrap margin if any */
+    width: 100%;
+    /* Ensure the table itself is full width within its container */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #ffffff;
+    /* Light hover effect for table rows */
+}
+
+/* --- Changes for vertical lines and borders --- */
+.table-bordered th,
+.table-bordered td {
+    border: none;
+    /* Removed all borders initially */
+}
+
+/* Add only horizontal borders */
+.table-bordered th {
+    border-bottom: 1px solid #ffffff;
+    /* Border below header cells */
+}
+
+.table-bordered td {
+    border-bottom: 1px solid #dee2e6;
+    /* Border below body cells */
+}
+
+/* Remove last row's bottom border if desired, though usually kept for consistency */
+.table-bordered tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03);
+    /* Light striping for readability */
+}
+
+.thead-dark th {
+    color: #0056b3;
+    /* White text for dark header */
+    background-color: #e6f2ff;
+    /* Dark background for header */
+    border-bottom: 2px solid #2980b9;
+    padding: 15px;
+    /* More padding for header cells */
+    font-size: 1.1rem;
+    font-weight: bold;
+    /* Ensured bold font-weight */
+    text-align: left;
+    /* Align header text to left */
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    /* Padding for body cells */
+    vertical-align: middle;
+    /* Vertically align content in cells */
+    font-size: 1rem;
+    color: #000000;
+    /* Slightly lighter text for body cells */
+    font-weight: normal;
+    /* Applied bold to table body cells */
+}
+
+.pending-row {
+    background-color: #fff3cd;
+    /* Light yellow background for pending rows */
+    color: #ffbf00;
+    /* Darker yellow text for pending rows */
+}
+
+.completed-row {
+    background-color: #d1e7dd;
+    /* Light green background for completed rows */
+    color: #0f5132;
+    /* Darker green text for completed rows */
+}
+
+/* --- Status Indicator Styling --- */
+.status-indicator {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    /* Pill shape */
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 80px;
+    /* Ensure consistent width */
+    text-align: center;
+    line-height: 1;
+}
+
+/* Specific colors for status */
+.status-pending {
+    background-color: #ffe0b2;
+    /* Light Orange */
+    color: #e65100;
+    /* Darker Orange */
+    border: 1px solid #ff9800;
+}
+
+.status-approved {
+    background-color: #c8e6c9;
+    /* Light Green */
+    color: #2e7d32;
+    /* Darker Green */
+    border: 1px solid #4caf50;
+}
+
+.status-rejected {
+    background-color: #ffcdd2;
+    /* Light Red */
+    color: #c62828;
+    /* Darker Red */
+    border: 1px solid #f44336;
+}
+
+.status-cancelled {
+    /* New style for Cancelled status */
+    background-color: #e0e0e0;
+    /* Light Grey */
+    color: #616161;
+    /* Darker Grey */
+    border: 1px solid #9e9e9e;
+}
+
+
+/* --- Action Buttons Styling --- */
+.btn-danger {
+    background-color: #e74c3c;
+    /* Red color for danger buttons */
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    /* Reduced padding for smaller button */
+    border-radius: 5px;
+    /* Slightly rounded corners for buttons */
+    cursor: pointer;
+    font-size: 0.85rem;
+    /* Slightly reduced font size */
+    font-weight: bold;
+    /* Ensured bold font-weight */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    /* Keep flex for icon alignment */
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    /* Reduced gap for icon and text */
+    margin-left: 10px;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: #c0392b;
+    /* Darker red on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
+}
+
+.btn-danger:disabled {
+    background-color: #cccccc;
+    /* Lighter gray for disabled buttons */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    /* Blue color for primary buttons */
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    /* Reduced padding for smaller button */
+    border-radius: 5px;
+    /* Slightly rounded corners for buttons */
+    cursor: pointer;
+    font-size: 0.85rem;
+    /* Slightly reduced font size */
+    font-weight: bold;
+    /* Ensured bold font-weight */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    /* Keep flex for icon alignment */
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    /* Reduced gap for icon and text */
+    margin-left: 10px;
+    /* Keep margin for separation */
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
+}
+
+.btn-primary:disabled {
+    background-color: #cccccc;
+    /* Lighter gray for disabled buttons */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Font Awesome Icons inside buttons */
+.btn .fa-solid {
+    margin-right: 3px;
+    /* Ensure small space for icons in buttons */
+}
+
+
+/* Actions Column Styling */
+.actions-header {
+    text-align: center;
+}
+
+.row-actions {
+    display: flex;
+    gap: 6px;
+    /* Slightly reduced space between buttons */
+    justify-content: center;
+    /* Center buttons horizontally */
+    align-items: center;
+}
+
+/* Button Styling */
+.btn-sm {
+    padding: 7px 12px;
+    /* Decreased button padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    /* Slightly decreased button font size */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    /* Transitions for buttons */
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.approve-btn {
+    background-color: #2ecc71;
+    /* Green for approve */
+    color: white;
+}
+
+.approve-btn:hover {
+    background-color: #27ae60;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+.reject-btn {
+    background-color: #e74c3c;
+    /* Red for reject */
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+/* Messages for loading, error, no data */
+.loading-message,
+.error-message,
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #555;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+
+
+/* --- Animations --- */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Responsive adjustments --- */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 0;
+        width: 100%;
+    }
+
+    .thead-dark th,
+    .table tbody td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .btn-danger,
+    .btn-primary {
+
+        padding: 5px 10px;
+        /* Further reduced padding for very small screens */
+        font-size: 0.75rem;
+        /* Further reduced font size for very small screens */
+        gap: 3px;
+        /* Further reduced gap */
+    }
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        padding: 0;
+    }
+
+    .custom-width-table {
+        min-width: unset;
+    }
+}
+
+
+.alert-danger {
+    --bs-alert-color: var(--bs-warning-text-emphasis);
+    --bs-alert-bg: var(--bs-warning-bg-subtle);
+    --bs-alert-border-color: var(--bs-warning-border-subtle);
+    --bs-alert-link-color: var(--bs-warning-text-emphasis);
+}
+
+
+
+
+/* --- New/Modified: Search Bar Styling --- */
+.card-top-section {
+    display: flex;
+    justify-content: flex-end;
+    /* Align to the right */
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    /* Allow wrapping on smaller screens */
+    gap: 15px;
+    /* Space between items if they wrap */
+    padding: 0 15px;
+    /* Add some padding to the section if needed */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    width: 20%;
+    max-width: 350px;
+    /* Limit search bar width */
+    margin-left: auto;
+    /* THIS IS THE CHANGE: Pushes the search bar to the right */
+}
+
+.search-bar:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 8px 0;
+    font-size: 1rem;
+    color: #343a40;
+    background: transparent;
+    /* Ensure input background is transparent within the bar */
+}
+
+.search-input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* --- Pagination Styles --- */
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    justify-content: center;
+    /* Center the pagination controls */
+    margin-top: 20px;
+    margin-bottom: 0;
+    /* Remove default Bootstrap margin bottom */
+}
+
+.page-item {
+    margin: 0 2px;
+    /* Small space between page items */
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #007bff;
+    /* Primary blue link color */
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    /* Light grey border */
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    /* Slightly rounded corners */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    /* Make page numbers bold */
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #0056b3;
+    /* Darker blue on hover */
+    background-color: #e9ecef;
+    /* Light grey background on hover */
+    border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    /* Active page background color */
+    border-color: #007bff;
+    /* Active page border color */
+    font-weight: 700;
+    /* Bolder for active page */
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    /* Grey text for disabled links */
+    pointer-events: none;
+    /* Prevent clicks */
+    background-color: #fff;
+    border-color: #dee2e6;
+    opacity: 0.6;
+    /* Slight opacity for disabled state */
+}
+
+/* --- Message Area Styles (New, similar to manager-attendance-report) --- */
+.message-area {
+    margin-top: 20px;
+    /* Space from the date picker card */
+    text-align: center;
+    padding: 0 20px;
+    /* Padding for overall area */
+}
+
+/* --- Specific Message Styles --- */
+/* (Assuming you have alert-info, alert-danger, alert-warning from Bootstrap or common CSS) */
+/* Custom styles for "No Data" messages */
+.no-data-message,
+.no-search-results-message {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #6c757d;
+    /* A slightly darker grey to distinguish from loading */
+    background-color: #e9ecef;
+    /* Light grey background */
+    border: 1px solid #ced4da;
+    /* Light grey border */
+    border-radius: 0.375rem;
+    margin: 20px auto;
+    /* Center the message with margin */
+    font-weight: normal;
+    max-width: 600px;
+    /* Limit width for readability */
+}
+
+/* Status indicator in table for non-pending items */
+.status-indicator {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 80px;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    /* Prevent text wrapping */
+}
+
+.status-approved {
+    background-color: #d4edda;
+    /* Light Green */
+    color: #155724;
+    /* Darker Green */
+    border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    /* Light Red */
+    color: #721c24;
+    /* Darker Red */
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning{
+    text-align: center;
+    padding: 20px;
+    background-color: #e6f7ff;
+    color: #0056b3;
+    border: 1px solid #91d5ff;
+    border-radius: 0.375rem;
+    font-weight: bold; /* Not bold by default, can adjust */
+    font-style: normal; /* Normal font style */
+    width: 80%;
+    margin-left: 150px;
+    margin-top: 50px;
+}

@@ -1,0 +1,465 @@
+/* General Body Styling */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f0f2f5;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Page Container (from previous snippet, adapted for this structure) */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* Card Styling (from previous snippet, applied to the table wrapper) */
+.card-dark {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+  margin-top: 40px;
+}
+
+.card-dark:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header-dark {
+  background-color: #f8f8f8;
+  color: #333333;
+  font-weight: 700;
+  border-bottom: 1px solid #e0e0e0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 15px 20px;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+/* Manager Navbar (Original, assuming app-manager-navbar handles its own styling) */
+app-manager-navbar {
+  width: 100%;
+}
+
+/* Table Wrapper (replaces .table-container for card integration) */
+.table-wrapper {
+  overflow-x: auto;
+  padding: 20px;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  min-width: 700px;
+  table-layout: fixed; /* Essential for controlling column widths precisely */
+}
+
+/* Removed individual `thead th:nth-child` widths here as they are now in <colgroup> */
+thead th {
+  background-color: #e6f2ff;
+  color: #0056b3;
+  padding: 10px 8px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid #2980b9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 0.85rem;
+  animation: slideInTop 0.5s ease-out forwards;
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eeeeee;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  animation: fadeInRight 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* Delay animation for successive rows */
+tbody tr:nth-child(1) { animation-delay: 0.1s; }
+tbody tr:nth-child(2) { animation-delay: 0.2s; }
+tbody tr:nth-child(3) { animation-delay: 0.3s; }
+tbody tr:nth-child(4) { animation-delay: 0.4s; }
+
+tbody tr:nth-child(even) {
+  background-color: #f8fbfb;
+}
+
+tbody tr:hover {
+  background-color: #f0f8ff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+td {
+  padding: 10px 8px;
+  vertical-align: middle;
+  color: #000000;
+  font-size: 0.9em;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Status specific styling */
+.status-pending {
+  font-weight: bold;
+  color: #e67e22;
+}
+
+/* Actions Column Styling */
+.actions-header {
+  text-align: center;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Button Styling */
+.btn-sm {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.approve-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #27ae60;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+.reject-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+/* Messages for loading, error, no data */
+.loading-message,
+.error-message,
+.no-data-message {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #555;
+}
+
+.error-message {
+  color: #6C542E; /* Dark brown/yellow for text (similar to the 'No Data Found' text) */
+  background-color: #FAEED1; /* Light pastel yellow for background (similar to the 'No Data Found' background) */
+  border: 1px solid #E0D0B3; /* Slightly darker yellow/brown for border */
+  /* Add padding, border-radius, etc., to style it like an alert box */
+  padding: 1rem;
+  border-radius: 0.375rem; /* Common border-radius */
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Keyframe Animations (from previous snippet) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInTop {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+      opacity: 0;
+      transform: translateX(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .page-container {
+      padding: 20px 10px;
+  }
+  .card-dark {
+      max-width: 100%;
+      margin-bottom: 25px;
+  }
+  .card-header-dark {
+      font-size: 1.4rem;
+      padding: 12px 15px;
+  }
+  thead th,
+  td {
+      padding: 8px 5px;
+      font-size: 0.8rem;
+  }
+  .btn-sm {
+      padding: 5px 8px;
+      font-size: 0.7em;
+  }
+  .row-actions {
+      flex-direction: column;
+      gap: 3px;
+  }
+  table {
+      min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header-dark {
+      padding: 10px;
+  }
+  thead th {
+      font-size: 0.75em;
+  }
+  td {
+      font-size: 0.8em;
+  }
+}
+
+.body{
+  margin-top: 110px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Existing CSS... */
+
+/* New: Search Bar Wrapper and Container */
+.search-bar-wrapper {
+  display: flex;
+  justify-content: flex-end; /* Align to right */
+  width: 100%;
+  padding: 10px 20px; /* Adjust padding as needed */
+  box-sizing: border-box;
+  margin-bottom: 15px; /* Space between search and table */
+  margin-left: 20px;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 500px; /* Limit search bar width */
+}
+
+.search-bar-container:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.search-icon {
+  color: #6c757d;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 3px 0;
+  font-size: 1rem;
+  color: #343a40;
+}
+
+.search-input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px; /* Space above pagination */
+  padding: 15px;
+  background-color: #ffffff;
+  border-top: 1px solid #ffffff;
+  border-radius: 0 0 10px 10px; /* Match table container border-radius */
+}
+
+.pagination-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  min-width: 90px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.page-number-btn {
+  background-color: #e9ecef;
+  color: #343a40;
+  border: 1px solid #ced4da;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  min-width: 40px;
+  text-align: center;
+}
+
+.page-number-btn:hover:not(.active) {
+  background-color: #d6dde3;
+  color: #000000;
+}
+
+.page-number-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+/* Adjustments for responsive design */
+@media (max-width: 768px) {
+  .search-bar-wrapper {
+    justify-content: center; /* Center search bar on smaller screens */
+    padding: 10px;
+
+  }
+  .search-bar-container {
+    max-width: 100%; /* Allow search bar to take full width */
+  }
+  .pagination-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+  }
+  .pagination-btn, .page-number-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .page-numbers {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pagination-btn {
+    width: 100%;
+  }
+}
+
+/* Ensure table container has appropriate padding-bottom to not clip pagination */
+.table-container {
+    padding-bottom: 20px; /* Add some padding if pagination is directly below */
+}
+
+/* Existing .body margin-top might be redundant if .page-container handles positioning */
+.body{
+  margin-top: 110px; /* Keep this if it's for spacing from a fixed header */
+  background-color: white; /* This will make the entire body background white, might want to reconsider */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Existing CSS */
+
+/* ... (Previous CSS for loading-message, error-message, no-data-message) ... */
+
+/* New: Style for "No Search Results" Message */
+.no-search-results-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #e6f7ff;
+  color: #0056b3;
+  border: 1px solid #91d5ff;
+  border-radius: 0.375rem;
+  margin-top: 15px; /* Space above or below */
+  font-weight: normal; /* Not bold by default, can adjust */
+  font-style: normal; /* Normal font style */
+}
+
+/* ... (Rest of your CSS, including search bar and pagination styles) ... */

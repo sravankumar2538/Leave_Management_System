@@ -1,0 +1,103 @@
+<div class="body">
+  <div class="container">
+      <div class="table-container">
+
+          <ng-container *ngIf="isLoading">
+              <p class="loading-message">Loading leave requests...</p>
+          </ng-container>
+
+          <ng-container *ngIf="!isLoading && hasError">
+              <p class="error-message">{{ errorMessage }}</p>
+          </ng-container>
+
+          <div *ngIf="!isLoading && !hasError && allLeaveRequests.length > 0" class="search-bar-wrapper">
+              <div class="search-bar-container">
+                  <i class="fas fa-search search-icon"></i>
+                  <input
+                      type="text"
+                      placeholder="Search by Employee ID, Name, Type, Status, Date, or Days"
+                      class="search-input"
+                      [(ngModel)]="searchTerm"
+                  />
+              </div>
+          </div>
+
+          <ng-container *ngIf="!isLoading && !hasError">
+              <ng-container *ngIf="allLeaveRequests.length === 0">
+                  <p class="no-data-message">No leave requests found for your account.</p>
+              </ng-container>
+              <ng-container *ngIf="allLeaveRequests.length > 0 && filteredLeaveRequests.length === 0">
+                  <p class="no-search-results-message">No leave requests found matching your search criteria.</p>
+              </ng-container>
+          </ng-container>
+
+
+          <table *ngIf="!isLoading && !hasError && paginatedLeaveRequests.length > 0" class="leave-request-table">
+              <colgroup>
+                  <col style="width: 10%;">
+                  <col style="width: 12%;">
+                  <col style="width: 12%;">
+                  <col style="width: 10%;">
+                  <col style="width: 10%;">
+                  <col style="width: 10%;">
+                  <col style="width: 8%;">
+                  <col style="width: 10%;">
+                  <col style="width: 18%;">
+              </colgroup>
+              <thead>
+                  <tr>
+                      <th>Employee ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Leave Type</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Total Days</th>
+                      <th>Time Stamp</th>
+                      <th class="actions-header">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let request of paginatedLeaveRequests" class="request-row">
+                      <td>{{ request.employeeId }}</td>
+                      <td>{{ request.firstName }}</td>
+                      <td>{{ request.lastName }}</td>
+                      <td>{{ request.leaveType }}</td>
+                      <td>{{ request.startDate | date:'dd-MM-yyyy' }}</td>
+                      <td>{{ request.endDate | date:'dd-MM-yyyy' }}</td>
+                      <td>{{ request.totalDays }}</td>
+                      <td>{{ request.timeStamp | date:'hh:mm:ss a' }}</td>
+                      <td class="row-actions">
+                          <ng-container *ngIf="request.status === 'Pending'">
+                              <button class="btn-sm approve-btn" (click)="triggerApproveConfirmation(request)">Approve</button>
+                              <button class="btn-sm reject-btn" (click)="triggerRejectConfirmation(request)">Reject</button>
+                          </ng-container>
+                          <ng-container *ngIf="request.status !== 'Pending'">
+                              <span class="status-indicator">Already {{ request.status }}</span>
+                          </ng-container>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <div *ngIf="!isLoading && !hasError && totalPages > 1 && filteredLeaveRequests.length > 0" class="pagination-controls">
+              <button class="pagination-btn" (click)="goToPage(1)" [disabled]="currentPage === 1">First</button>
+              <button class="pagination-btn" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+
+              <div class="page-numbers">
+                  <button *ngFor="let page of pages"
+                          class="page-number-btn"
+                          [class.active]="page === currentPage"
+                          (click)="goToPage(page)">
+                      {{ page }}
+                  </button>
+              </div>
+              <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+              <button class="pagination-btn" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">Last</button>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<app-popup #confirmPopup></app-popup>

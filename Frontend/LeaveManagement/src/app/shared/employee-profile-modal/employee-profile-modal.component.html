@@ -1,0 +1,49 @@
+<div class="modal-backdrop" *ngIf="showModal"></div>
+<div class="modal-dialog" *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Employee Profile</h5>
+      <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="user-icon-container">
+        <i class="fas fa-user-circle"></i>
+      </div>
+
+      <div class="profile-details" *ngIf="currentEmployeeProfile">
+        <div class="detail-row">
+          <label>Employee ID:</label>
+          <span>{{ currentEmployeeProfile.employeeId }}</span>
+        </div>
+        <div class="detail-row">
+          <label>First Name:</label>
+          <span>{{ currentEmployeeProfile.firstName }}</span>
+        </div>
+        <div class="detail-row">
+          <label>Last Name:</label>
+          <span>{{ currentEmployeeProfile.lastName }}</span>
+        </div>
+        <div class="detail-row">
+          <label>Email:</label>
+          <span>{{ currentEmployeeProfile.email }}</span>
+        </div>
+        <div class="detail-row">
+          <label>Role:</label>
+          <span>{{ currentEmployeeProfile.role }}</span>
+        </div>
+        <div class="detail-row">
+          <label>Manager Id:</label>
+          <span>{{ currentEmployeeProfile.managerId}}</span>
+        </div>
+      </div>
+      <div *ngIf="!currentEmployeeProfile" class="text-center text-muted">
+        Loading employee details...
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCloseClick()"><i class="fas fa-times-circle"></i> Close</button>
+    </div>
+  </div>
+</div>

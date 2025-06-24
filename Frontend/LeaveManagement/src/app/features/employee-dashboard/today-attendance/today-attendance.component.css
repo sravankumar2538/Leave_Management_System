@@ -1,0 +1,149 @@
+/*
+ * Styles for WeekProgressComponent
+ * This CSS focuses solely on styling this component's card and its internal elements (progress bars).
+ * Global body styles, navbar layout, and overall dashboard structure
+ * are assumed to be handled by parent components' CSS or global stylesheets.
+ */
+
+/* Card Styling */
+.card-dark {
+  background-color: #ffffff; /* White card background */
+  border: 1px solid #e0e0e0; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle light shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+  display: flex;
+  flex-direction: column; /* To make header and body stack vertically */
+  height: 100%; /* Make the card take full height of its parent column */
+  width: 100%; /* Card fills the width of its parent column */
+  font-family: 'Inter', sans-serif; /* Ensuring Inter font is used */
+}
+
+.card-dark:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+.card-header-dark {
+  background-color: #f8f8f8; /* Light grey header for cards */
+  color: #333333; /* Dark text for header */
+  font-weight: 700; /* Made text bold */
+  border-bottom: 1px solid #e0e0e0; /* Light separator */
+  border-top-left-radius: 10px; /* Match card-dark border-radius */
+  border-top-right-radius: 10px; /* Match card-dark border-radius */
+  padding: 1rem 1.25rem; /* Padding for header */
+  font-size: 1.8rem; /* Larger header text */
+  text-align: center;
+}
+
+.card-body {
+  flex-grow: 1; /* Allow the body to take up remaining vertical space */
+  padding: 1.25rem; /* Padding inside the card body */
+  display: flex;
+  flex-direction: column; /* Stack progress containers */
+  overflow-y: auto;
+}
+
+/* Info and Error Messages */
+.info-message,
+.error-message {
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center; /* Center the text for messages */
+  font-family: 'Inter', sans-serif; /* Ensuring Inter font is used */
+}
+
+.info-message {
+  background-color: #e0f7fa; /* Light blue */
+  color: #007bff; /* Primary blue text */
+  border: 1px solid #b2ebf2; /* Light blue border */
+}
+
+.error-message {
+  /* Corrected: Replaced Bootstrap variables with direct CSS values */
+  background-color: #fdf6e6; /* Light red/pink for error background */
+  color: #dcb235; /* Red text for error */
+}
+
+/* Progress Bar Container Styling */
+.progress-container {
+  margin-bottom: 10px; /* DECREASED margin-bottom between progress bars for compactness */
+}
+
+.progress-label {
+  color: #555555; /* Dark grey text for labels */
+  font-weight: 700; /* Made text bold */
+  margin-bottom: 5px;
+  animation: slideInLeft 0.6s ease-out forwards; /* Animation for labels to slide in from left */
+  opacity: 0; /* Start invisible for animation */
+  font-family: 'Inter', sans-serif; /* Ensuring Inter font is used */
+}
+
+.progress {
+  height: 16px; /* FURTHER DECREASED height of the progress bar track for a sleeker look */
+  background-color: #e9ecef; /* Light grey track */
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1); /* Subtle inner shadow */
+}
+
+.progress-bar {
+  border-radius: 5px;
+  transition: width 1.0s ease-out; /* Smooth transition for width change, increased duration for better visual */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Keep text white for contrast on colored bars */
+  font-weight: 700;
+  font-size: 0.75rem; /* Adjusted font size for smaller height */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Add subtle text shadow for readability */
+
+  opacity: 0; /* Start invisible */
+  animation: fadeIn 0.8s ease-out forwards; /* Simple fade-in animation */
+  font-family: 'Inter', sans-serif; /* Ensuring Inter font is used */
+}
+
+/* Custom Progress Bar Colors (used in component.ts logic) */
+.progress-bar-blue { background-color: #007bff; } /* Used if a general 'primary' color is needed */
+.progress-bar-green { background-color: #28a745; } /* High attendance */
+.progress-bar-orange { background-color: #ffc107; } /* Changed to a more standard orange (#fd7e14 was also fine, this is just a common one) */
+.progress-bar-red { background-color: #dc3545; } /* Low attendance */
+
+/* Keyframes for animations */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Adjustments (only for elements within this component) */
+@media (max-width: 992px) {
+  .card-header-dark {
+      font-size: 1.5rem;
+      padding: 15px 20px;
+  }
+
+  .progress-bar {
+      font-size: 0.7rem; /* Smaller font on smaller screens if needed */
+  }
+}
+@media (max-width: 576px) {
+  .card-header-dark {
+      font-size: 1.2rem;
+      padding: 10px 15px;
+  }
+
+  .progress-bar {
+      font-size: 0.6rem; /* Further reduced font size for very small screens */
+  }
+} 
+/* End of WeekProgressComponent styles */
+/* Additional styles for TodayAttendanceComponent can be added here if needed */  

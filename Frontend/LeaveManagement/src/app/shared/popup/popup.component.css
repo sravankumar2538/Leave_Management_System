@@ -1,0 +1,163 @@
+/* popup.component.css */
+
+/*
+ * These CSS rules ensure the Bootstrap modal's backdrop covers the screen
+ * and the modal dialog is positioned at the top with a blurred background.
+ */
+ .modal.show.d-block {
+    /* `position: fixed` ensures the modal stays in place even when the user scrolls. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ensures the backdrop covers the entire screen for the blur effect */
+    /* `z-index` places the modal above other content on the page.
+     * 1050 is the standard z-index for Bootstrap modals. */
+    z-index: 1050;
+    /* `background-color` creates the semi-transparent dark overlay. */
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for better contrast */
+  
+    /* Applies a blur effect to the content behind the modal overlay. */
+    backdrop-filter: blur(8px); /* Increased blur for more emphasis */
+    -webkit-backdrop-filter: blur(8px); /* For Safari compatibility */
+  
+    /* Use flexbox to align the modal dialog to the top and center horizontally */
+    display: flex;
+    align-items: flex-start; /* Aligns the modal dialog to the top */
+    justify-content: center; /* Horizontally centers the modal dialog */
+    padding-top: 40px; /* Increased padding from the top */
+  
+    /* Animation for the backdrop */
+    animation: fadeInBackground 0.3s ease-out forwards;
+  }
+  
+  /* Keyframes for backdrop fade-in */
+  @keyframes fadeInBackground {
+    from {
+      background-color: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+  
+  /*
+   * For the modal-dialog, we primarily rely on Bootstrap's default styling
+   * and our flexbox parent to position it at the top.
+   */
+  .modal-dialog {
+    /* Remove any conflicting absolute positioning or custom margins */
+    position: relative; /* Ensure it respects flex positioning */
+    top: auto; /* Ensure no conflicting 'top' property */
+    left: auto; /* Ensure no conflicting 'left' property */
+    transform: none; /* Remove any transform that might be applied for centering */
+    margin: auto; /* This helps with horizontal centering within the flex container if needed */
+  
+    /* Keep responsive width settings */
+    width: 90%; /* A bit wider for better responsiveness on smaller screens */
+    max-width: 600px; /* Increased max-width */
+  
+    /* Styling for the modal container */
+    background-color: #ffffff; /* Clean white background */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow */
+    overflow: hidden; /* Ensures content stays within rounded corners */
+  
+    /* Animation for the modal dialog */
+    animation: slideInFromTop 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  /* Keyframes for modal slide-in from top */
+  @keyframes slideInFromTop {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Optional: Add an exit animation when the modal closes */
+  .modal:not(.show) .modal-dialog {
+    animation: fadeOutToTop 0.3s ease-out forwards;
+  }
+  
+  @keyframes fadeOutToTop {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  }
+  
+  /* You might want to style the modal header, body, and footer */
+  .modal-header {
+    background-color: #007bff; /* A nice primary blue */
+    color: white;
+    border-bottom: 1px solid #0056b3;
+    padding: 15px 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-weight: bold; /* Making header text bold */
+  }
+  
+  .modal-header .close {
+    color: white;
+    opacity: 1;
+    text-shadow: none; /* Remove default text shadow for better look */
+  }
+  
+  .modal-body {
+    padding: 20px;
+    color: #333; /* Darker text for readability */
+    line-height: 1.6;
+    font-weight: bold; /* Making body text bold */
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa; /* Light grey footer */
+    padding: 15px 20px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+  }
+  
+  /* Example button styling for consistency */
+  .modal-footer .btn {
+    padding: 8px 20px;
+    border-radius: 8px; /* Slightly more rounded buttons */
+    font-weight: bold; /* Making button text bold */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .modal-footer .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+  }

@@ -1,0 +1,114 @@
+<div class="body">
+  <nav class="navbar navbar-expand-lg navbar-dark-transparent fixed-top">
+      <div class="container-fluid">
+          <button class="navbar-brand" (click)="goToEmployeeDashboard()"
+                  [ngClass]="{'active-brand': activeRoute === '/employee/dashboard'}">COGNIZANT</button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <button type="button" class="nav-link" aria-current="page" (click)="goToEmployeeDashboard()"
+                              [ngClass]="{'active': activeRoute === '/employee/dashboard'}">
+                          <i class="fas fa-home"></i>Home
+                      </button>
+                  </li>
+                  <li class="nav-item">
+                      <button type="button" class="nav-link" (click)="goToAttendanceReport()"
+                              [ngClass]="{'active': activeRoute === '/employee/EmployeeAttendanceReport'}">
+                          <i class="fas fa-clipboard-list"></i>Attendance
+                      </button>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <button class="nav-link dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="fas fa-file-alt"></i>Leave
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="goTOLeaveRequest()"
+                                     >
+                                  <i class="fas fa-edit"></i>Leave Request
+                              </button>
+                          </li>
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="goToLeaveRequestStatus()"
+                                    >
+                                  <i class="fas fa-info-circle"></i>Leave Status
+                              </button>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <button class="nav-link dropdown-toggle" type="button" id="shiftDropdown" data-bs-toggle="dropdown"
+                          aria-expanded="false" >
+                          <i class="fas fa-clock"></i>Shifts
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="shiftDropdown">
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="goToShifts()"
+                                     >
+                                  <i class="fas fa-calendar-check"></i>Assigned Shifts
+                              </button>
+                          </li>
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="goToShiftStatus()"
+                                      >
+                                  <i class="fas fa-plus-circle"></i>Shift Swap Status
+                              </button>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="nav-item">
+                      <button type="button" class="nav-link" (click)="goToLeaveBalance()"
+                             >
+                          <i class="fas fa-wallet"></i>Leave Balance
+                      </button>
+                  </li>
+                  <li class="nav-item">
+                      <button type="button" class="nav-link" (click)="goToAnnualCalendar()"
+                             >
+                          <i class="fas fa-calendar-alt"></i>Calendar
+                      </button>
+                  </li>
+                  <li class="nav-item">
+                      <button type="button" class="nav-link" (click)="goToAbout()"
+                             >
+                          <i class="fas fa-info-circle"></i>About
+                      </button>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                      <button class="nav-link dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown"
+                          aria-expanded="false" [ngClass]="{'active': activeRoute?.startsWith('/profile') || activeRoute === '/employee/view-profile'}">
+                          <i class="fas fa-user-circle"></i>Profile
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="fetchAndOpenEmployeeProfile()"
+                                      [ngClass]="{'active': activeRoute === '/employee/view-profile'}">
+                                  <i class="fas fa-address-card"></i>View Profile
+                              </button>
+                          </li>
+                          <li>
+                              <hr class="dropdown-divider">
+                          </li>
+                          <li>
+                              <button type="button" class="dropdown-item" (click)="goToLogOut()">
+                                  <i class="fas fa-sign-out-alt"></i>Logout
+                              </button>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+  <app-employee-profile-modal [showModal]="showProfileModal" [currentEmployeeProfile]="currentEmployeeProfile"
+      (closeModal)="closeProfileModal()">
+  </app-employee-profile-modal>
+  <router-outlet></router-outlet>
+</div>

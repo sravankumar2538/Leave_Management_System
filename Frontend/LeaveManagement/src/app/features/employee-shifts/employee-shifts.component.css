@@ -1,0 +1,933 @@
+html,
+body {
+    height: 100%;
+    /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #ffffff;
+    /* Light background for the whole page */
+    font-family: 'Inter', sans-serif;
+    /* Using Inter font as per guidelines */
+    font-weight: 500;
+    /* Make all body text bold by default */
+    box-sizing: border-box;
+    /* Global box-sizing for consistency */
+    overflow: hidden; /* Added to hide overall body scrollbars */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    /* Inherit box-sizing from html/body */
+}
+
+.body {
+    background: #ffffff;
+    /* Light background for the main content area */
+    min-height: 100%;
+    /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column;
+    /* To allow stacking of elements like navbar and content */
+    color: #333333;
+    /* Dark text color for contrast on white background */
+    margin-top: 85px;
+    /* Added margin-top to account for fixed navbar */
+    overflow: hidden; /* Added to hide scrollbars for the main content area */
+}
+
+.page-body {
+    flex-grow: 1;
+    /* Allows this section to take up remaining vertical space */
+    display: flex;
+    flex-direction: column;
+    /* Changed to column to stack header and section */
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    /* Needed for absolute positioning of header */
+    padding: 30px;
+    /* Added padding to page-body for content spacing */
+    overflow: hidden; /* Added to hide scrollbars for page-body */
+}
+
+.schedule-header {
+    position: absolute;
+    /* Position absolutely within .page-body */
+    top: 30px;
+    /* Aligned with page-body padding */
+    right: 30px;
+    /* Aligned with page-body padding */
+    z-index: 10;
+    /* Ensure it's above other content if needed */
+    animation: fadeIn 0.5s ease-out;
+    /* Fade in animation for the button */
+}
+
+/* Disabled state for history button */
+.history-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #cccccc !important;
+    /* Force disabled background */
+    color: #666666 !important;
+    /* Force disabled text color */
+    transform: none !important;
+    /* Remove hover/active transformations */
+    box-shadow: none !important;
+    /* Remove hover/active box-shadow */
+    transition: none !important;
+    /* Disable all transitions when disabled */
+}
+
+/* Ensure no hover effects on disabled history button */
+.history-btn:disabled:hover,
+.history-btn:disabled:active {
+    background-color: #cccccc !important;
+    /* Keep disabled background on hover/active */
+    color: #666666 !important;
+    /* Keep disabled text color on hover/active */
+    transform: none !important;
+    /* Absolutely no transform on hover/active */
+    box-shadow: none !important;
+    /* Absolutely no shadow on hover/active */
+    cursor: not-allowed !important;
+    /* Ensure cursor remains not-allowed */
+}
+
+.history-btn:hover {
+    background-color: #2980b9;
+    /* Darker blue on hover */
+    transform: translateY(-3px);
+    /* Lift effect */
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+.schedule-section {
+    margin-top: 0;
+    /* Reset margin-top as it's now the main content block */
+    background-color: #ffffff;
+    /* White background for the section */
+    padding: 30px;
+    /* Padding inside the section */
+    border-radius: 15px;
+    /* Rounded corners for the section */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for the section */
+    width: 100%;
+    /* Take full width within page-body padding */
+    box-sizing: border-box;
+    animation: fadeInScale 0.8s ease-out;
+    /* Animation for entry */
+    overflow: hidden; /* Added to hide scrollbars for schedule-section */
+}
+
+.section-title {
+    color: #2c3e50;
+    /* Darker, professional blue-gray */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.table-responsive-wrapper {
+    /* REMOVED: overflow-x: auto; */
+    width: 100%;
+    overflow: hidden; /* Ensures no scrollbars on this wrapper */
+}
+
+.shift-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Collapse borders between cells */
+    margin-top: 15px;
+    /* No outer border on the table to ensure no vertical lines at the edges */
+    border: none;
+    /* Explicitly remove any table outer borders */
+}
+
+.shift-table th,
+.shift-table td {
+    padding: 8px 15px;
+    /* REDUCED PADDING HERE TO DECREASE ROW HEIGHT */
+    text-align: left;
+    /* Only border-bottom for horizontal lines, no side borders */
+    border: none;
+    /* Remove all cell borders by default */
+    border-bottom: 1px solid #ddd;
+    /* Add back only the bottom border */
+    font-weight: 500;
+    color: black;
+    /* All text bold */
+}
+
+/* Ensure the last row does not have a bottom border for a cleaner look */
+.shift-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-header {
+    background-color: #e6f2ff;
+    /* Light blue background for headers */
+    color: #0056b3;
+    /* Darker blue for header text */
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    animation: slideInTop 0.5s ease-out forwards;
+    /* Animation for header */
+}
+
+.shift-table tbody tr {
+    animation: fadeInRow 0.6s ease-out forwards;
+    /* Animation for each row */
+    opacity: 0;
+    /* Start invisible */
+    transform: translateY(20px);
+    /* Start slightly below */
+}
+
+/* Delay animation for successive rows */
+.shift-table tbody tr:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.shift-table tbody tr:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+/* Add more :nth-child rules if you have more static rows */
+
+.shift-table tbody tr:hover {
+    background-color: #f0f8ff;
+    /* Even lighter blue on row hover */
+    transition: background-color 0.3s ease;
+}
+
+.table-data {
+    color: #333333;
+    /* Darker text for data */
+    font-size: 1rem;
+    font-weight: bold;
+    /* All text bold */
+}
+
+/* Disabled state for swap button */
+.swap-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #cccccc !important;
+    /* Grey out disabled button */
+    color: #666666 !important;
+    /* Darker text on grey background */
+    transform: none !important;
+    /* Remove hover/active transformations */
+    box-shadow: none !important;
+    /* Remove hover/active box-shadow */
+    transition: none !important;
+    /* Disable all transitions when disabled */
+}
+
+/* Ensure no hover effects on disabled swap button */
+.swap-btn:disabled:hover,
+.swap-btn:disabled:active {
+    background-color: #cccccc !important;
+    /* Keep disabled background on hover/active */
+    color: #666666 !important;
+    /* Keep disabled text color on hover/active */
+    transform: none !important;
+    /* Absolutely no transform on hover/active */
+    box-shadow: none !important;
+    /* Absolutely no shadow on hover/active */
+    cursor: not-allowed !important;
+    /* Ensure cursor remains not-allowed */
+}
+
+.swap-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2ecc71;
+    /* Green color */
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(46, 204, 113, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Space between icon and text */
+}
+
+.swap-btn:hover {
+    background-color: #27ae60;
+    /* Darker green on hover */
+    transform: translateY(-2px);
+    /* Lift effect */
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+/* Animations */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-body {
+        padding: 15px;
+    }
+
+    .schedule-header {
+        position: static;
+        /* Revert to static for flow on small screens */
+        margin-bottom: 20px;
+        /* Add margin below button */
+        text-align: center;
+        right: auto;
+        top: auto;
+        display: flex;
+        justify-content: center;
+        /* Center button on small screens */
+    }
+
+    .history-btn {
+        width: 100%;
+        max-width: 300px;
+        /* Limit button width on small screens */
+        text-align: center;
+        justify-content: center;
+    }
+
+    .schedule-section {
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .shift-table th,
+    .shift-table td {
+        padding: 8px 10px;
+        /* Adjusted for smaller screens too */
+        font-size: 0.9rem;
+    }
+
+    .swap-btn {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* --- Core Modal Styles (Re-tuned for better aesthetics) --- */
+
+/* Dim and BLUR the background when the modal is active */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Slightly darker overlay */
+    z-index: 1040;
+    backdrop-filter: blur(5px);
+    /* Apply blur effect to the background */
+    transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+    /* Smooth transition for blur and dim */
+    animation: fadeIn 0.3s forwards;
+    /* Fade in animation for the backdrop */
+}
+
+/* Modal container */
+.modal-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    /* Start slightly smaller for scale-in effect */
+    z-index: 1050;
+    width: 90%;
+    max-width: 550px;
+    /* Slightly wider max-width for more content space */
+    background-color: #ffffff;
+    border-radius: 12px;
+    /* More rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    /* More pronounced shadow */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ensure no scrollbars within the modal dialog */
+    opacity: 0;
+    /* Start invisible for fade-in effect */
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease-in-out;
+    /* Springy transform and fade */
+    animation: scaleIn 0.3s forwards;
+    /* Scale in animation for the modal */
+}
+
+/* Animation for modal entry */
+@keyframes scaleIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* Modal header */
+.modal-header {
+    padding: 18px 25px;
+    /* More padding */
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f2f5;
+    /* A softer light grey */
+    color: #333;
+    font-size: 1.3rem;
+    /* Slightly larger title */
+    font-weight: 700;
+}
+
+.modal-header .modal-title {
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    /* Larger title */
+    font-weight: 600;
+    color: #343a40;
+}
+
+.modal-header .close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    /* Larger close icon */
+    line-height: 1;
+    color: #666;
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+    /* Smooth transition */
+}
+
+.modal-header .close:hover {
+    color: #333;
+    opacity: 1;
+    transform: rotate(90deg);
+    /* Little spin on hover */
+}
+
+/* Modal body for form content */
+.modal-body {
+    padding: 25px;
+    /* More padding */
+    flex-grow: 1;
+    background-color: #fdfdfd;
+    /* Off-white for subtle contrast */
+    overflow-y: hidden; /* Hides vertical scrollbar in modal body if content overflows */
+    overflow-x: hidden; /* Hides horizontal scrollbar in modal body if content overflows */
+}
+
+.modal-body .form-group {
+    margin-bottom: 1.2rem;
+    /* More spacing */
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    /* Bolder labels */
+    color: #555;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Input/Select field focus animation */
+.modal-body .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    /* More padding in fields */
+    font-size: 1.05rem;
+    /* Slightly larger text */
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #c9d2da;
+    /* Softer border */
+    border-radius: 6px;
+    /* Slightly more rounded inputs */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.modal-body .form-control:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.3);
+    /* Stronger glow on focus */
+}
+
+/* UPDATED READONLY/DISABLED STYLES */
+.modal-body .form-control[readonly],
+.modal-body .form-control[disabled] {
+    background-color: #e9ecef;
+    /* A light grey, typical disabled color */
+    opacity: 1;
+    /* Ensures it's not faded if browser applies default opacity */
+    cursor: not-allowed;
+    /* Changes cursor to indicate non-editable */
+    transform: none;
+    /* Ensure no transformations */
+    box-shadow: none;
+    /* Ensure no shadows */
+}
+
+
+/* NEW: Validation styles specifically for modal inputs */
+.modal-body .form-control.is-invalid {
+    border-color: #e74c3c;
+    /* Red border for invalid fields */
+    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.3);
+    /* Red glow for invalid fields */
+}
+
+.modal-body .validation-message {
+    color: #e74c3c;
+    /* Red text for validation messages */
+    font-size: 0.85rem;
+    /* Slightly smaller font for modal validation */
+    margin-top: 0.3rem;
+    text-align: left;
+}
+
+/* Modal footer for action buttons */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 18px 25px;
+    /* More padding */
+    border-top: 1px solid #e0e0e0;
+    gap: 15px;
+    /* More space between buttons */
+    background: white;
+    border: none;
+
+}
+
+.modal-footer .btn {
+    padding: 0.6rem 1.5rem;
+    /* Larger buttons */
+    font-size: 1.05rem;
+    border-radius: 8px;
+    /* More rounded buttons */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out, transform 0.1s ease-in-out;
+    /* Smooth transitions and subtle press effect */
+    font-weight: 600;
+    position: relative;
+    /* For button press effect */
+    overflow: hidden;
+    /* For hover effects like ripple */
+}
+
+/* Button hover and active states */
+.modal-footer .btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border: none;
+    /* No border for a cleaner look */
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    /* Slight lift */
+}
+
+.modal-footer .btn-secondary:active {
+    background-color: #4e555b;
+    transform: translateY(0);
+    /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.modal-footer .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    /* No border */
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal-footer .btn-primary:active {
+    background-color: #004085;
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Disabled state for all buttons in modal footer */
+.modal-footer .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #cccccc !important;
+    /* Force disabled background */
+    color: #666666 !important;
+    /* Force disabled text color */
+    transform: none !important;
+    /* Disable transform animation when disabled */
+    box-shadow: none !important;
+    /* Disable box-shadow animation when disabled */
+    transition: none !important;
+    /* Disable all transitions when disabled */
+}
+
+/* Ensure no hover effects on disabled modal footer buttons */
+.modal-footer .btn:disabled:hover,
+.modal-footer .btn:disabled:active {
+    background-color: #cccccc !important;
+    /* Keep disabled background on hover/active */
+    color: #666666 !important;
+    /* Keep disabled text color on hover/active */
+    transform: none !important;
+    /* Absolutely no transform on hover/active */
+    box-shadow: none !important;
+    /* Absolutely no shadow on hover/active */
+    cursor: not-allowed !important;
+    /* Ensure cursor remains not-allowed */
+}
+
+/* Spinner for loading state */
+.spinner-border {
+    display: inline-block;
+    width: 1.1rem;
+    /* Slightly larger spinner */
+    height: 1.1rem;
+    vertical-align: text-bottom;
+    border: 0.15em solid currentColor;
+    /* Thicker spinner border */
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+    margin-right: 0.6rem;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 90%;
+        /* Allow wider on medium screens */
+    }
+
+    .modal-header .modal-title {
+        font-size: 1.3rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+        gap: 10px;
+    }
+
+    .modal-footer .btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        width: 95%;
+        border-radius: 8px;
+        /* Less rounded on small screens */
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+    }
+
+    .modal-header .modal-title {
+        font-size: 1.2rem;
+    }
+
+    .modal-header .close {
+        font-size: 1.7rem;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        /* Stack buttons on very small screens */
+        align-items: stretch;
+        padding: 15px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+        /* Full width buttons */
+        margin-bottom: 10px;
+        /* Space between stacked buttons */
+        padding: 0.6rem 1rem;
+    }
+
+    .modal-footer .btn:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* --- Optional: Add a subtle animation to form-groups on load for a dynamic feel --- */
+/* You would need to add a class like "modal-opened" to the body or a parent element
+   when the modal is open, and remove it when closed.
+   For example, in your component:
+   document.body.classList.add('modal-opened');
+   document.body.classList.remove('modal-opened');
+*/
+
+.modal-opened .modal-body .form-group {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInFormGroup 0.4s forwards ease-out;
+}
+
+.modal-opened .modal-body .form-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.modal-opened .modal-body .form-group:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.modal-opened .modal-body .form-group:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+@keyframes slideInFormGroup {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-danger {
+    --bs-alert-color: var(--bs-warning-text-emphasis);
+    --bs-alert-bg: var(--bs-warning-bg-subtle);
+    --bs-alert-border-color: var(--bs-warning-border-subtle);
+    --bs-alert-link-color: var(--bs-warning-text-emphasis);
+}
+
+
+
+
+/* Styles for the Search Control Row */
+.search-controls-row {
+    display: flex;
+    justify-content: flex-end;
+    /* Align search to the right */
+    align-items: center;
+    margin-bottom: 15px;
+    /* Space between search bar and table */
+    padding-right: 15px;
+    /* Adjust if table has side padding */
+}
+
+.search-bar-container {
+    position: relative;
+    width: 300px;
+    /* Adjust width as needed */
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 10px 8px 35px;
+    /* Adjust left padding for icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* Pill shape */
+    font-size: 0.9em;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* Ensure these are present for messages too for consistency */
+.message-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.95em;
+    border: 1px solid transparent;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-warning {
+    text-align: center;
+    padding: 20px;
+    background-color: #e6f7ff;
+    color: #0056b3;
+    border: 1px solid #91d5ff;
+    border-radius: 0.375rem;
+    font-weight: bold;
+    /* Not bold by default, can adjust */
+    font-style: normal;
+    /* Normal font style */
+    width: 80%;
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+
+
+
+/* Styles for Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.page-item {
+    margin: 0 3px;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.page-link:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    pointer-events: none;
+    /* Disable click on active page */
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    /* Disable click */
+    background-color: #fff;
+    border-color: #dee2e6;
+    opacity: 0.6;
+}
+
+.search-bar-container {
+    width: 30%;
+    margin-left: 780px;
+}

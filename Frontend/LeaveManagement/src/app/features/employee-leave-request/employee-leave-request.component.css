@@ -1,0 +1,217 @@
+.body{
+    background-color: white;
+    margin-top: 85px;
+}
+html, body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #f0f2f5; /* Light background for the whole page */
+    font-family: 'Inter', sans-serif; /* Using Inter font as per guidelines */
+}
+
+.body {
+    background: #ffffff; /* Light background for the main content area */
+    min-height: 100%; /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column; /* To allow stacking of elements like navbar and content */
+    color: #333333; /* Dark text color for contrast on white background */
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-grow: 1; /* Allows the container to take up available vertical space */
+    padding: 20px; /* Overall padding around the form */
+}
+
+.form-container {
+    background: #ffffff; /* Solid white background */
+    padding: 40px; /* More padding inside the form */
+    border-radius: 15px; /* Even more rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Prominent, soft shadow */
+    width: 90%; /* Take up 90% of the container width */
+    max-width: 1000px; /* A reasonable max-width to prevent it from becoming too wide on very large screens */
+    margin: auto; /* Center the form container horizontally */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    animation: fadeInScale 0.8s ease-out; /* Animation for entry */
+}
+
+.form-title {
+    color: #2c3e50; /* Darker, professional blue-gray */
+    text-align: center;
+    margin-bottom: 30px; /* More space below title */
+    border-bottom: 2px solid #e0e0e0; /* Slightly thicker border */
+    padding-bottom: 20px;
+    font-size: 2.2rem; /* Larger title */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.form-item {
+    margin-bottom: 25px; /* More space between form items */
+}
+
+.form-label {
+    color: #34495e; /* Darker gray for labels */
+    display: block;
+    margin-bottom: 10px; /* More space below label */
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px; /* More padding for inputs */
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 8px; /* More rounded input fields */
+    background-color: #f8f8f8; /* Very light gray input background */
+    color: #333333;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #3498db; /* Bright blue on focus */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); /* Blue glow on focus */
+    background-color: #ffffff; /* White background on focus */
+}
+
+.form-input::placeholder {
+    color: #95a5a6; /* Lighter placeholder text */
+}
+
+/* Validation styles */
+.form-input.is-invalid {
+  border-color: #e74c3c; /* Red border for invalid fields */
+  box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2); /* Red glow for invalid fields */
+}
+
+.validation-message {
+  color: #e74c3c; /* Red text for validation messages */
+  font-size: 0.9rem;
+  margin-top: 5px;
+  text-align: left;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 30px; /* More gap between columns */
+    flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
+}
+
+.form-row .form-item {
+    flex: 1; /* Allows items to grow and shrink */
+    min-width: 300px; /* Ensures inputs don't become too small on wrap */
+}
+
+.button-group {
+    display: flex;
+    gap: 20px; /* More space between buttons */
+    margin-top: 40px; /* More space above buttons */
+    justify-content: flex-end; /* Aligns buttons to the right */
+}
+
+.submit-button,
+.history-button {
+    padding: 15px 30px; /* Larger buttons */
+    border: none;
+    border-radius: 10px; /* More rounded buttons */
+    cursor: pointer;
+    font-size: 1.15rem; /* Larger font */
+    font-weight: 700;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    flex-grow: 0; /* Prevents buttons from stretching excessively */
+    flex-shrink: 0;
+    display: flex; /* For icon alignment */
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-button {
+    background-color: #2ecc71; /* Vibrant green */
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+.history-button {
+    background-color: #95a5a6; /* Muted gray */
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(149, 165, 166, 0.3);
+}
+
+.submit-button:hover {
+    background-color: #29b162; /* Darker green on hover */
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+    transform: translateY(-3px); /* Pronounced lift effect */
+}
+
+.history-button:hover {
+    background-color: #7f8c8d; /* Darker gray on hover */
+    box-shadow: 0 8px 20px rgba(149, 165, 166, 0.4);
+    transform: translateY(-3px); /* Pronounced lift effect */
+}
+
+.submit-button:disabled {
+  background-color: #cccccc; /* Light gray for disabled button */
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.submit-button i,
+.history-button i {
+    margin-right: 10px; /* More space for icons */
+    font-size: 1.2rem;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column; /* Stack items vertically on small screens */
+        gap: 0; /* Remove gap when stacked */
+    }
+
+    .form-row .form-item {
+        min-width: unset; /* Remove min-width constraint */
+    }
+
+    .button-group {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: stretch; /* Make buttons fill width */
+    }
+
+    .form-container {
+        padding: 25px; /* Reduce padding on small screens */
+        width: 95%; /* Take up more width on small screens */
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .submit-button,
+    .history-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}
+

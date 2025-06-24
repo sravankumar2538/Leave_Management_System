@@ -1,0 +1,286 @@
+/* General Body Styling */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Updated background: subtle white gradient with slight transparency/opacity */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 248, 248, 0.95));
+    color: #333333; /* Dark text for contrast */
+    font-weight: bold; /* Ensure all body text is bold */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: hidden; /* Permanently prevent vertical scroll */
+}
+
+/* Specific body margin-top as requested */
+.body {
+    margin-top: 50px; /* Adjusted margin-top for the body content */
+    background: #f8f9fa; /* Very light grey background for the dashboard area */
+    min-height: calc(100vh - 50px); /* Adjust min-height to account for margin-top */
+    display: flex;
+    flex-direction: column;
+    color: #333333;
+}
+
+.employee-navbar-container {
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0; /* Light border */
+    background-color: #ffffff; /* White navbar background */
+    position: fixed; /* Keep navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* New container for fixed width layout */
+.layout-container {
+    max-width: 1400px; /* Set your desired maximum width here */
+    margin: 0 auto; /* Center the container */
+    width: 100%; /* Ensure it takes full width up to max-width */
+    flex-grow: 1; /* Allow it to grow and take available space */
+    display: flex; /* Inherit flex properties from body to align content */
+    flex-direction: column; /* Stack content vertically within the container */
+}
+
+.main-dashboard {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+    /* Removed background here as it's now on .body */
+}
+
+.left-section {
+    flex: 0.6; /* Left section takes 60% of available space */
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.week-progress-section {
+    background-color: #ffffff; /* White background for the card/section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+    padding: 20px;
+    height: 100%;
+}
+
+.right-section {
+    flex: 0.4; /* Right section takes 40% of available space */
+    display: flex;
+    flex-direction: column; /* Components stack vertically */
+    gap: 15px;
+    height: 100%; /* Allows children to stretch/shrink with flex-grow */
+}
+
+.actions-section {
+    background-color: #ffffff; /* White background for the card/section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+    padding: 15px 15px;
+    margin-top: 30px;
+    width: 100%;
+    min-height: 200px; /* Ensure a minimum height so it doesn't collapse */
+    max-height: 280px; /* Increased max-height significantly for more layout space */
+    overflow-y: hidden; /* Removed scrollable part as requested */
+}
+
+/* Action Button Styling - content of actions-section */
+.action-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.15s ease;
+    color: white;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.action-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.action-button-clock-in {
+    background-color: #007bff;
+}
+.action-button-clock-in:hover {
+    background-color: #0056b3;
+}
+.action-button-clock-in:active {
+    background-color: #007bff;
+}
+
+.action-button-clock-out {
+    background-color: #dc3545;
+}
+.action-button-clock-out:hover {
+    background-color: #c82333;
+}
+.action-button-clock-out:active {
+    background-color: #dc3545;
+}
+
+.holiday-calendar-section {
+    background-color: #ffffff; /* White background for the card/section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+    padding: 15px;
+    margin-top: 0px;
+    flex-grow: 1; /* Allows it to take remaining vertical space */
+    overflow-y: hidden; /* Removed scrollable part as requested */
+    /* Removed max-height here to allow flex-grow to work fully */
+}
+
+/* Basic styling for content inside sections */
+.week-progress-section > *,
+.actions-section > *,
+.holiday-calendar-section > * {
+    margin-bottom: 15px;
+}
+
+.week-progress-section > *:last-child,
+.actions-section > *:last-child,
+.holiday-calendar-section > *:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1200px) {
+    .main-dashboard {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .left-section,
+    .right-section {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .actions-section {
+        padding: 10px 12px;
+        min-height: 180px; /* Adjusted min-height */
+        max-height: 240px; /* Adjusted max-height for smaller desktops */
+        overflow-y: hidden;
+    }
+
+    .holiday-calendar-section {
+        padding: 12px;
+        overflow-y: hidden;
+    }
+
+    .action-button {
+        padding: 10px;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-dashboard {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+        height: auto;
+    }
+
+    .actions-section {
+        margin-top: 10px;
+        min-height: 150px; /* Adjusted min-height for tablets */
+        max-height: 200px; /* Adjusted max-height for stacking layout */
+        padding: 10px;
+        overflow-y: hidden;
+    }
+
+    .holiday-calendar-section {
+        margin-top: 10px;
+        padding: 10px;
+        flex-grow: 1; /* Maintain flex-grow */
+        height: auto; /* Let content define height when stacked */
+        max-height: none; /* No max-height when stacked on tablets/mobiles for flexibility */
+        overflow-y: hidden;
+    }
+
+    .week-progress-section {
+        margin-top: 10px;
+    }
+
+    .action-button {
+        padding: 8px;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .actions-section {
+        min-height: 130px;
+        max-height: 180px; /* Adjusted for smaller mobiles */
+    }
+    .holiday-calendar-section {
+        max-height: none; /* Ensure no max-height here either */
+    }
+
+    .action-button {
+        padding: 7px;
+        font-size: 0.85rem;
+        margin-bottom: 7px;
+    }
+}
+
+@media (max-width: 576px) {
+    .employee-navbar-container {
+        padding: 10px;
+    }
+
+    .main-dashboard {
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .left-section,
+    .right-section {
+        margin-top: 5px;
+    }
+
+    .week-progress-section,
+    .actions-section,
+    .holiday-calendar-section {
+        padding: 8px;
+    }
+
+    .actions-section {
+        min-height: 100px;
+        max-height: 160px; /* Adjusted max-height for very small screens */
+    }
+    .holiday-calendar-section {
+        max-height: none; /* Ensure no max-height here either */
+    }
+
+    .action-button {
+        padding: 6px;
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+}

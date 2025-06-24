@@ -1,0 +1,46 @@
+<div class="body">
+  
+    <div class="page-body">
+      <div class="modal-body">
+        <div class="leave-types-grid">
+  
+          <div *ngIf="isLoading" class="alert alert-info text-center" role="alert">
+            <i class="fas fa-spinner fa-spin me-2"></i> Loading leave balances...
+          </div>
+  
+          <div *ngIf="hasError" class="alert alert-danger text-center" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i> {{ errorMessage }}
+          </div>
+  
+          <ng-container *ngIf="!isLoading && !hasError && leaveBalanceData.employeeId !== 0">
+  
+            <div class="leave-balance-card">
+              <h3 class="leave-type-title">Casual</h3>
+              <p class="leave-balance-count">{{ leaveBalanceData.casual }}</p>
+            </div>
+  
+            <div class="leave-balance-card">
+              <h3 class="leave-type-title">Sick</h3>
+              <p class="leave-balance-count">{{ leaveBalanceData.sick }}</p>
+            </div>
+  
+            <div class="leave-balance-card">
+              <h3 class="leave-type-title">Vacation</h3>
+              <p class="leave-balance-count">{{ leaveBalanceData.vacation }}</p>
+            </div>
+  
+            <div class="leave-balance-card">
+              <h3 class="leave-type-title">Medical</h3>
+              <p class="leave-balance-count">{{ leaveBalanceData.medical }}</p>
+            </div>
+  
+          </ng-container>
+  
+          <div *ngIf="!isLoading && !hasError && leaveBalanceData.employeeId === 0" class="alert alert-warning text-center" role="alert">
+            <i class="fas fa-info-circle me-2"></i> No leave balance data available for the current year.
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

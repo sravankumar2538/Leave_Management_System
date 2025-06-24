@@ -1,0 +1,104 @@
+<div class="body">
+
+    <div class="container">
+        <div class="form-container">
+
+            <div class="mb-3">
+                <input type="text" [(ngModel)]="searchTerm" class="form-control" style="width: 40%;margin-left: 684px;"
+                    placeholder="Search by Employee ID, Name, Shift Date, or Shift Time">
+            </div>
+
+            <div *ngIf="isLoading" class="alert alert-info text-center" role="alert">
+                Loading shift swap requests...
+            </div>
+
+            <div *ngIf="hasError && !isLoading" class="alert alert-danger text-center" role="alert">
+                {{ errorMessage }}
+            </div>
+
+            <div *ngIf="!isLoading && hasFetchedData && allShiftSwapRequests.length === 0 && !hasError"
+                class="alert alert-warning text-center" role="alert">
+                No shift swap requests found.
+            </div>
+
+            <div *ngIf="!isLoading && hasFetchedData && allShiftSwapRequests.length > 0 && filteredShiftSwapRequests.length === 0 && !hasError"
+                class="alert alert-warning text-center" role="alert">
+                No shift swap requests found matching your search criteria.
+            </div>
+
+            <div class="table-responsive" *ngIf="!isLoading && filteredShiftSwapRequests.length > 0">
+                <table class="table table-hover table-bordered table-striped custom-width-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="col-employee-id">Employee ID</th>
+                            <th scope="col" class="col-first-name">First Name</th>
+                            <th scope="col" class="col-last-name">Last Name</th>
+                            <th scope="col" class="col-shift-date">Shift Date</th>
+                            <th scope="col" class="col-shift-from">Shift From</th>
+                            <th scope="col" class="col-shift-to">Shift To</th>
+                            <th scope="col" class="col-time-stamp">Time Stamp</th>
+                            <th scope="col" class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let request of paginatedShiftSwapRequests; let i = index"
+                            [style.animation-delay.s]="0.1 * i">
+                            <td>{{ request.employeeId }}</td>
+                            <td>{{ request.firstName }}</td>
+                            <td>{{ request.lastName }}</td>
+                            <td>{{ request.shiftDate | date:'dd-MM-yyyy' }}</td>
+                            <td>{{ request.changeShiftFrom }}</td>
+                            <td>{{ request.changeShiftTo }}</td>
+                            <td>{{ request.timeStamp | date:'hh:mm:ss a' }}</td>
+                            <td class="row-actions">
+                                <ng-container *ngIf="request.status === 'Pending'">
+                                    <button class="btn-sm approve-btn"
+                                        (click)="triggerApproveConfirmation(request)">
+                                        <i class="fa-solid fa-check"></i> Approve
+                                    </button>
+                                    <button class="btn-sm reject-btn"
+                                        (click)="triggerRejectConfirmation(request)">
+                                        <i class="fa-solid fa-xmark"></i> Reject
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="request.status !== 'Pending'">
+                                    Already {{ request.status }}
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <nav *ngIf="totalPages > 1">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" [class.disabled]="currentPage === 1">
+                            <a class="page-link" (click)="goToPage(1)" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === 1">
+                            <a class="page-link" (click)="previousPage()" aria-label="Previous">
+                                <span aria-hidden="true">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of getPages()" [class.active]="page === currentPage">
+                            <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" (click)="nextPage()" aria-label="Next">
+                                <span aria-hidden="true">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-popup #confirmPopup></app-popup>

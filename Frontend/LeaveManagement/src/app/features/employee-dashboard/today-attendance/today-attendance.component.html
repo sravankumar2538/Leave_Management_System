@@ -1,0 +1,37 @@
+<div class="card card-dark h-100">
+    <div class="card-header card-header-dark">Week Progress</div>
+  
+    <div class="card-body">
+      <div *ngIf="isLoading" class="info-message text-center">
+        Loading weekly attendance progress...
+      </div>
+  
+      <div *ngIf="hasError" class="error-message text-center">
+        {{ errorMessage }}
+      </div>
+  
+      <div *ngIf="!isLoading && !hasError && weeklyProgressData.length === 0" class="info-message text-center">
+        No weekly attendance data available.
+      </div>
+  
+      <ng-container *ngIf="!isLoading && !hasError && weeklyProgressData.length > 0">
+        <div class="progress-container" *ngFor="let day of weeklyProgressData; let i = index">
+          <div class="progress-label" [style.animation-delay.s]="0.1 * i + 0.7">
+            {{ day.date | date:'dd-MM-yyyy' }} ({{ day.totalHours }} hrs)
+          </div>
+          <div class="progress">
+            <div class="progress-bar {{ day.colorClass }}"
+                 role="progressbar"
+                 [style.width.%]="day.percentage"
+                 [attr.aria-valuenow]="day.percentage"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 [style.transition-delay.s]="(0.1 * i) + 0.9">
+              <span class="sr-only">{{ day.percentage }}% complete for {{ day.date | date:'dd-MM-yyyy' }}</span>
+              {{ day.percentage }}%
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>

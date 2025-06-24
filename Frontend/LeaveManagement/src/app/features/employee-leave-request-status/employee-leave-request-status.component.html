@@ -1,0 +1,180 @@
+<div class="body">
+    <div class="page-body">
+  
+      <header class="page-header">
+      </header>
+  
+      <div class="container form-container">
+        <div class="table-responsive">
+  
+          <div class="search-controls-row" *ngIf="!isLoading && !hasError">
+            <div class="search-bar-container">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="text"
+                placeholder="Search by Type, Status, Date or Days"
+                class="search-input"
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="onSearchChange()"
+              />
+            </div>
+          </div>
+  
+          <div class="message-area">
+            <div *ngIf="isLoading" class="alert alert-info text-center" role="alert">
+              Fetching leave requests...
+            </div>
+  
+            <div *ngIf="!isLoading && hasError && errorMessage" class="alert alert-danger text-center" role="alert">
+              <strong>Error:</strong> {{ errorMessage }}
+            </div>
+  
+            <div *ngIf="!isLoading && !hasError && leaveRequests.length === 0"
+              class="alert alert-warning text-center" role="alert">
+              No leave requests found.
+            </div>
+  
+            <div *ngIf="!isLoading && !hasError && searchTerm && filteredLeaveRequests.length === 0 && leaveRequests.length > 0"
+              class="alert alert-warning text-center" role="alert">
+              No leave requests found matching "{{ searchTerm }}".
+            </div>
+          </div>
+  
+  
+          <ng-container *ngIf="!isLoading && !hasError && filteredLeaveRequests.length > 0">
+            <table class="table table-hover table-bordered table-striped custom-width-table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col" class="col-leave-type">LEAVE TYPE</th>
+                  <th scope="col" class="col-start-date">START DATE</th>
+                  <th scope="col" class="col-end-date">END DATE</th>
+                  <th scope="col" class="col-total-days">TOTAL DAYS</th>
+                  <th scope="col" class="col-status">STATUS</th>
+                  <th scope="col" class="col-time-stamp">TIME STAMP</th>
+                  <th scope="col" class="col-actions">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let request of paginatedLeaveRequests; let i = index">
+                  <tr class="request-row" [class.pending-row]="request.status === 'Pending'"
+                      [class.completed-row]="request.status !== 'Pending'" [style.animation-delay.s]="0.1 * i">
+                    <td>{{ request.leaveType }}</td>
+                    <td>{{ request.startDate | date:'dd-MM-yyyy' }}</td>
+                    <td>{{ request.endDate | date:'dd-MM-yyyy' }}</td>
+                    <td>{{ request.totalDays }}</td>
+                    <td>
+                      <span class="status-indicator status-{{ request.status.toLowerCase() }}">
+                        {{ request.status }}
+                      </span>
+                    </td>
+                    <td>{{ request.timeStamp | date : 'hh:mm:ss a' }}</td>
+                    <td class="row-actions">
+                      <button class="btn btn-primary btn-sm update-button"
+                          [disabled]="request.status !== 'Pending'"
+                          (click)="request.status === 'Pending' && updateRequest(request)">
+                          <i class="fa-solid fa-pen-to-square"></i> Update
+                      </button>
+                      <button class="btn btn-danger btn-sm cancel-button"
+                          [disabled]="request.status !== 'Pending'"
+                          (click)="request.status === 'Pending' && triggerCancelConfirmation(request)">
+                          <i class="fa-solid fa-circle-xmark"></i> Cancel Request
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+  
+            <div *ngIf="totalPages > 1" class="pagination-controls-custom">
+              <button class="pagination-btn-custom" (click)="goToPage(1)" [disabled]="currentPage === 1">First</button>
+              <button class="pagination-btn-custom" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  
+              <div class="page-numbers-custom">
+                <button *ngFor="let page of pages"
+                        class="page-number-btn-custom"
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                  {{ page }}
+                </button>
+              </div>
+  
+              <button class="pagination-btn-custom" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+              <button class="pagination-btn-custom" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">Last</button>
+            </div>
+          </ng-container>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal-backdrop" *ngIf="showUpdateModal"></div>
+    <div class="modal-dialog" *ngIf="showUpdateModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Leave Request</h5>
+          <button type="button" class="close" aria-label="Close" (click)="closeUpdateModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="triggerSubmitUpdateConfirmation()" #updateFormRef="ngForm">
+            <div class="form-group">
+              <label for="leaveType">Leave Type:</label>
+              <select id="leaveType" name="leaveType" class="form-control"
+                  [(ngModel)]="updateFormModel.leaveType" required
+                  #leaveTypeRef="ngModel"
+                  [ngClass]="{ 'is-invalid': leaveTypeRef.invalid && (leaveTypeRef.dirty || leaveTypeRef.touched) }">
+                  <option value="" disabled>Select Leave Type</option>
+                  <option value="Casual">Casual</option>
+                  <option value="Sick">Sick</option>
+                  <option value="Medical">Medical</option>
+                  <option value="Vacation">Vacation</option>
+              </select>
+              <div *ngIf="leaveTypeRef.invalid && (leaveTypeRef.dirty || leaveTypeRef.touched)" class="validation-message">
+                  <div *ngIf="leaveTypeRef.errors?.['required']">Leave Type is required.</div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" name="startDate" class="form-control"
+                  [(ngModel)]="updateFormModel.startDate" required
+                  #startDateRef="ngModel"
+                  [max]="updateFormModel.endDate"
+                  [ngClass]="{ 'is-invalid': startDateRef.invalid && (startDateRef.dirty || startDateRef.touched) }">
+              <div *ngIf="startDateRef.invalid && (startDateRef.dirty || startDateRef.touched)" class="validation-message">
+                  <div *ngIf="startDateRef.errors?.['required']">Start Date is required.</div>
+                  <div *ngIf="startDateRef.errors?.['max']">Start Date cannot be after End Date.</div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="endDate">End Date:</label>
+              <input type="date" id="endDate" name="endDate" class="form-control"
+                  [(ngModel)]="updateFormModel.endDate" required
+                  #endDateRef="ngModel"
+                  [min]="updateFormModel.startDate"
+                  [ngClass]="{ 'is-invalid': endDateRef.invalid && (endDateRef.dirty || endDateRef.touched) }">
+              <div *ngIf="endDateRef.invalid && (endDateRef.dirty || endDateRef.touched)" class="validation-message">
+                  <div *ngIf="endDateRef.errors?.['required']">End Date is required.</div>
+                  <div *ngIf="endDateRef.errors?.['min']">End Date cannot be before Start Date.</div>
+              </div>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeUpdateModal()">Cancel</button>
+              <button type="submit" class="btn btn-primary" [disabled]="updateFormRef.invalid || isUpdating">
+                <span *ngIf="isUpdating" class="spinner-border spinner-border-sm" role="status"
+                  aria-hidden="true"></span>
+                {{ isUpdating ? 'Updating...' : 'Update Request' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <app-popup #cancelConfirmPopup></app-popup>
+  
+    <app-popup #updateConfirmPopup></app-popup>
+  </div>

@@ -1,0 +1,15 @@
+html, body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #ffffff; /* Light background for the whole page */
+    font-family: 'Inter', sans-serif; /* Using Inter font as per guidelines */
+}
+
+.body {
+    background: #ffffff; /* Light background for the main content area */
+    min-height: 100%; /* Ensure body takes at least full viewport height */
+    display: flex;
+    flex-direction: column; /* To allow stacking of elements like navbar and content */
+}
+
+/* You can add more styles for other elements within the body here */

@@ -1,0 +1,7 @@
+﻿###
+POST http://localhost:5276/api/Employee/Login
+Accept: application/json
+{
+    "email": "bob.brown@example.com",
+    "password": "password4"
+}

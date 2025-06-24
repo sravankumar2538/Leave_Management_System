@@ -1,0 +1,205 @@
+/* General Body Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: hidden; /* Permanently prevent vertical scroll */
+    font-weight: bold; /* Make all body text bold by default */
+}
+
+/* Not Found Container */
+.not-found-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Light background image with a subtle white overlay */
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)),
+                url('https://images.unsplash.com/photo-1581335010620-33230a1c1103?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;
+    animation: fadeInBackground 2s ease-in-out forwards; /* Initial fade-in for background */
+    position: relative;
+}
+
+/* Not Found Content Box */
+.not-found-content {
+    background-color: rgba(255, 255, 255, 0.95); /* Mostly opaque white background */
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Lighter, subtle shadow */
+    backdrop-filter: blur(8px); /* Frosted glass effect on the light background */
+    animation: slideInDown 1s ease-out forwards; /* Slide down animation */
+    opacity: 0; /* Start invisible for animation */
+    transform: translateY(-50px); /* Start slightly above for slide down */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Hover transition */
+    text-align: center; /* Center content within the box */
+}
+
+.not-found-content:hover {
+    transform: translateY(-10px) scale(1.01); /* Lift and slightly scale on hover */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); /* More prominent lighter shadow on hover */
+}
+
+/* Error Visual Section (for 404 text and figure) */
+.error-visual {
+    position: relative;
+    display: inline-block; /* To contain the glitch effect */
+    margin-bottom: 20px;
+}
+
+/* 404 Heading Glitch Effect */
+.glitch-text {
+    font-weight: 900; /* Ensuring it's very bold */
+    color: #2c3e50; /* Dark blue-gray for the main text */
+    font-size: 6em; /* Example size, adjust in HTML if needed */
+    position: relative;
+    animation: textFlicker 0.5s infinite alternate; /* Glitch animation */
+    text-shadow: 0 0 5px #e74c3c, 0 0 10px #c0392b, 0 0 15px #e74c3c; /* Red glow for glitch */
+}
+
+/* Animated Figure (Image) */
+.animated-figure {
+    max-width: 250px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    animation: floatEffect 3s infinite alternate ease-in-out; /* Continuous float */
+    position: absolute; /* Position relative to .error-visual */
+    top: -50px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%); /* Center the figure */
+    z-index: 1; /* Ensure it's above the text if overlapping */
+}
+
+/* Heading and Paragraph Text */
+.slide-in-heading {
+    animation: slideInLeft 1s ease-out forwards 0.5s; /* Delayed slide-in */
+    opacity: 0;
+    color: #34495e; /* Darker gray for heading */
+    font-weight: bold; /* Ensuring it's bold */
+}
+
+.fade-in-paragraph {
+    animation: fadeIn 1s ease-in-out forwards 1s; /* Delayed fade-in */
+    opacity: 0;
+    color: #555555; /* Medium gray for paragraph */
+    font-weight: bold; /* Ensuring it's bold */
+}
+
+/* Buttons */
+.btn {
+    border-radius: 50px; /* Pill-shaped buttons */
+    font-weight: bold; /* Ensuring it's bold */
+    padding: 12px 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin: 10px; /* Space between buttons */
+}
+
+.btn-primary {
+    background-color: #3498db; /* Vibrant blue */
+    border-color: #3498db;
+    color: #fff;
+    animation: bounceIn 0.8s ease-out forwards 1.5s; /* Delayed bounce-in */
+    opacity: 0;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    border-color: #2980b9;
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 8px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-outline-light {
+    border-color: rgba(52, 152, 219, 0.5); /* Blue outline */
+    color: #3498db; /* Blue text */
+    background-color: transparent; /* Transparent background */
+    animation: fadeIn 1s ease-in-out forwards 1.7s; /* Delayed fade-in */
+    opacity: 0;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(52, 152, 219, 0.1); /* Light blue background on hover */
+    color: #3498db; /* Keep blue text */
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 8px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Keyframes for Animations (unchanged from previous version, but included for completeness) */
+@keyframes fadeInBackground {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes textFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 5px #e74c3c, 0 0 10px #c0392b, 0 0 15px #e74c3c; /* Red glow */
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.7;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes floatEffect {
+    0% { transform: translateY(0px) translateX(-50%); }
+    50% { transform: translateY(-15px) translateX(-50%); }
+    100% { transform: translateY(0px) translateX(-50%); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .not-found-content {
+        padding: 30px;
+    }
+    .glitch-text {
+        font-size: 3.5em; /* Adjusted for smaller screens */
+    }
+    .slide-in-heading {
+        font-size: 1.5em; /* Adjusted for smaller screens */
+    }
+    .fade-in-paragraph {
+        font-size: 0.9em; /* Adjusted for smaller screens */
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    .animated-figure {
+        max-width: 150px; /* Adjusted for smaller screens */
+        top: -20px;
+    }
+}

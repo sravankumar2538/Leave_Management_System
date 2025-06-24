@@ -1,0 +1,92 @@
+<div class="body">
+  <nav class="navbar navbar-expand-lg navbar-dark-transparent fixed-top">
+    <div class="container-fluid">
+      <button class="navbar-brand" (click)="goToManagerDashboard()">COGNIZANT</button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button type="button" class="nav-link active" aria-current="page" (click)="goToManagerDashboard()">
+              <i class="fas fa-home"></i>Home
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="goToManagerEmployees()">
+              <i class="fas fa-users"></i> Employees
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="goToAttendanceReport()">
+              <i class="fas fa-clipboard-list"></i>Attendance
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="goToManagerLeaveRequest()">
+              <i class="fas fa-file-alt"></i>Leave Request
+            </button>
+          </li>
+          <li class="nav-item dropdown"> <button class="nav-link dropdown-toggle" type="button"
+              id="managerShiftDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-clock"></i>Shifts
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="managerShiftDropdown">
+              <li>
+                <button type="button" class="dropdown-item" (click)="goToManagerShiftAssign()">
+                  <i class="fas fa-plus-circle"></i>Assign Shift
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item" (click)="goToManagerShifts()">
+                  <i class="fas fa-calendar-check"></i>Assigned Shifts
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item" (click)="goToManagerShiftSwap()">
+                  <i class="fas fa-exchange-alt"></i>Shift Swap Request
+                </button>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="goToAnnualCalendar()">
+              <i class="fas fa-calendar-alt"></i> Calendar
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="goToAbout()">
+              <i class="fas fa-info-circle"></i>About
+            </button>
+          </li>
+          <li class="nav-item dropdown">
+            <button class="nav-link dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-user-circle"></i>Profile
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+              <li>
+                <button type="button" class="dropdown-item" (click)="fetchAndOpenEmployeeProfile()">
+                  <i class="fas fa-address-card"></i>View Profile
+                </button>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <button type="button" class="dropdown-item" (click)="goToLogOut()">
+                  <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <app-employee-profile-modal [showModal]="showProfileModal" [currentEmployeeProfile]="currentEmployeeProfile"
+    (closeModal)="closeProfileModal()">
+  </app-employee-profile-modal>
+  <router-outlet></router-outlet>
+</div>

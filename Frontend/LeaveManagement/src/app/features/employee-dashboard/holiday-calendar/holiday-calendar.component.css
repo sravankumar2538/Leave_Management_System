@@ -1,0 +1,65 @@
+/* Card Styling (for the Holiday Calendar card) - White Theme */
+.card-dark {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Lighter, subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-dark:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow on hover */
+  }
+  
+  .card-header-dark {
+    background-color: #f8f8f8; /* Light grey header for cards */
+    color: #333333; /* Darker text for header */
+    font-weight: 700; /* Made text bold */
+    border-bottom: 1px solid #e0e0e0; /* Light border at the bottom of the header */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  /* Holiday Calendar Item Styling - White Theme */
+  .holiday-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee; /* Very light border for list items */
+    animation: fadeInRight 0.6s ease-out forwards; /* Animation for holiday items */
+    opacity: 0;
+  }
+  
+  .holiday-item:last-child {
+    border-bottom: none;
+  }
+  
+  .holiday-date {
+    font-weight: 700; /* Made text bold */
+    color: #666666; /* Medium grey for date */
+  }
+  
+  .holiday-name {
+    font-weight: 700; /* Made text bold */
+    color: #333333; /* Darker grey for holiday name */
+  }
+  
+  /* Keyframe for fadeInRight animation (remains the same as it's about movement, not color) */
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Responsive adjustment specific to cards */
+  @media (max-width: 768px) {
+    .card-dark {
+      margin-bottom: 25px; /* Add margin for stacking cards on small screens */
+    }
+  }

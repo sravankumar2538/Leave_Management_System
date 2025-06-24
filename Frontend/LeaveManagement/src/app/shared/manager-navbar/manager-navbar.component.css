@@ -1,0 +1,213 @@
+/* Custom Styles for Navbar */
+.navbar-dark-transparent {
+  background-color: rgba(255, 255, 255, 0.5); /* White fade dim color, more opaque for the "white dim shade" theme */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Slightly stronger, elegant shadow */
+  padding: 0.8rem 1rem; /* Adjust padding as needed */
+  backdrop-filter: blur(10px) saturate(180%); /* More pronounced blur and saturation for a frosted glass effect */
+  -webkit-backdrop-filter: blur(10px) saturate(180%); /* For Safari */
+  transition: background-color 0.4s ease-out, box-shadow 0.4s ease-out; /* Smooth transition for potential future dynamic changes */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  border: none;
+  background: white;
+  font-size: 1.6rem; /* Larger brand text */
+  color: #0076BF !important; /* Cognizant's brand blue (retained as it's a brand color) */
+  letter-spacing: 1px; /* Slightly spaced letters for brand */
+  transition: color 0.3s ease, transform 0.3s ease; /* Animation for hover */
+}
+
+.navbar-brand:hover {
+  color: #005691 !important; /* Slightly darker shade on hover (retained for brand effect) */
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+/* Styles for the buttons used as navigation links */
+.navbar-nav .nav-link {
+  /* Reset button default styles */
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem; /* Padding for nav links */
+  text-align: left; /* Align text to left inside button */
+  width: 100%; /* Make button take full width of its container (li) */
+  cursor: pointer; /* Indicate it's clickable */
+  display: flex; /* Allow icon and text to sit side-by-side */
+  align-items: center; /* Vertically align icon and text */
+
+  /* Apply existing nav-link styles */
+  color: #333333 !important; /* Dark grey for nav links on light background */
+  font-weight: 500;
+  /* Removed all hover/focus transitions and effects */
+  border-radius: 0.35rem;
+}
+
+.navbar-nav .nav-link i {
+  margin-right: 8px; /* Space between icon and text */
+}
+
+/* Explicitly remove all hover and active states for nav links */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+  background-color: transparent; /* Ensure no background on hover/focus/active */
+  color: #333333 !important; /* Keep original color on hover/focus/active */
+  transform: none; /* Remove any transform on hover/focus/active */
+  box-shadow: none; /* Remove any shadow on hover/focus/active */
+}
+
+/* Adjustments for the toggler button */
+.navbar-toggler {
+  border-color: rgba(0, 0, 0, 0.2); /* Darker border for light theme */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Darker lines for visibility */
+}
+
+/* Ensure the body takes full height and push content below navbar */
+body {
+  margin-top: 56px; /* Adjust this value based on your navbar's height */
+  background-color: #f0f2f5; /* Very light grey background for the page content */
+  font-family: 'Inter', sans-serif; /* Using Inter font as per common practice */
+}
+
+/* Basic styling for the main content area to show it's below the navbar */
+.body {
+  padding-top: 0;
+}
+
+/* Style for the modal (optional, depends on app-employee-profile-modal internal styling) */
+app-employee-profile-modal {
+  z-index: 1050; /* Higher than navbar, if modal appears */
+}
+
+/* Ensure dropdown items also have consistent styling */
+.dropdown-item {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease; /* Animation for hover */
+}
+
+.dropdown-item i {
+  margin-right: 8px;
+}
+
+.dropdown-menu {
+  background-color: rgba(245, 245, 245, 0.95); /* Light gray fade background for dropdown menu, slightly transparent */
+  border: 1px solid rgba(0, 0, 0, 0.08); /* Very subtle border */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* More pronounced shadow for dropdown */
+  border-radius: 0.5rem; /* Rounded corners for the dropdown menu */
+  animation: fadeInDown 0.3s ease-out forwards; /* Fade-in and subtle slide down animation */
+  transform-origin: top center; /* Origin for scaling effect */
+}
+
+/* Animation for closing dropdown (you'll need to apply a class like 'dropdown-menu-hidden' when it's closing) */
+.dropdown-menu.dropdown-menu-closing {
+  animation: fadeOutUp 0.3s ease-in forwards;
+}
+
+
+.dropdown-item {
+  color: #333333; /* Dark grey for dropdown items */
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(225, 225, 225, 0.9); /* Slightly darker grey shade for dropdown button hover/focus */
+  color: #1a1a1a; /* Darker text on hover */
+}
+
+.dropdown-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.08); /* Lighter divider for light theme */
+}
+
+/* Keyframes for ultimate animation effects */
+
+/* Fade-in and slide-down for opening dropdown */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+/* Fade-out and slide-up for closing dropdown */
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+  }
+}
+
+/* Keyframe for fade-in animation for collapsed menu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) { /* Applies to screens smaller than 'lg' breakpoint (Bootstrap's default) */
+  .navbar-nav .nav-item {
+    width: 100%; /* Make each nav item take full width when collapsed */
+  }
+
+  .navbar-nav .nav-link {
+    margin-right: 0; /* Remove horizontal margin when stacked vertically */
+    justify-content: flex-start; /* Align content to the start when stacked */
+    padding-left: 1.5rem; /* Add some padding for better alignment within the collapsed menu */
+  }
+
+  .navbar-toggler {
+    margin-right: 1rem; /* Add some margin to the toggler on smaller screens if needed */
+  }
+
+  .navbar-collapse {
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly more opaque for collapsed menu background */
+    border-radius: 0.5rem; /* Rounded corners for the collapsed menu */
+    margin-top: 0.5rem; /* Space below the toggler */
+    padding-bottom: 0.5rem; /* Padding at the bottom of the collapsed menu */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for collapsed menu */
+    animation: fadeIn 0.3s ease-out; /* Fade-in animation for collapsed menu */
+  }
+
+  .dropdown-menu {
+    position: static !important; /* Stack dropdown items vertically within the collapsed menu */
+    float: none;
+    width: 100%;
+    margin-top: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent; /* Transparent background for nested dropdowns in collapsed state */
+    border-radius: 0;
+    padding-left: 1.5rem; /* Indent nested dropdown items */
+    animation: none; /* Disable dropdown animations when inside collapsed menu to avoid conflicts */
+  }
+
+  .dropdown-menu .dropdown-item {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 767.98px) { /* Applies to screens smaller than 'md' breakpoint */
+  .navbar-brand {
+    font-size: 1.4rem; /* Slightly smaller brand text on very small screens */
+  }
+}

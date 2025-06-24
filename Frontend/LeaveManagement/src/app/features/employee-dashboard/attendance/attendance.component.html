@@ -1,0 +1,20 @@
+<div class="body">
+    <div class="col-lg-4 mb-4">
+        <div class="row h-100">
+            <div class="col-12 mb-4">
+                <div class="card card-dark h-100">
+                    <div class="card-header card-header-dark">Actions</div>
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <button class="btn action-button action-button-clock-in" (click)="onClockIn()">Clock In</button>
+                        <button class="btn action-button action-button-clock-out" (click)="onClockOut()">Clock Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add the PopupComponent here -->
+<!-- Use #confirmPopup to get a reference in the TypeScript file -->
+<!-- (confirmed) event handles the result (true for OK, false for Cancel) -->
+<app-popup #confirmPopup></app-popup>

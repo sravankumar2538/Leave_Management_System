@@ -1,0 +1,137 @@
+<div class="body">
+  <div class="container">
+      <div class="form-container">
+          <div class="table-responsive-wrapper">
+
+              <div *ngIf="isLoading" class="alert alert-info text-center" role="alert">
+                  Loading shift details...
+              </div>
+
+              <div *ngIf="hasError" class="alert alert-danger text-center" role="alert">
+                  {{ errorMessage }}
+              </div>
+
+              <div class="search-bar-container"
+                  *ngIf="!isLoading && !hasError && (EmployeeShiftResponseData && EmployeeShiftResponseData.length > 0 || searchTerm)">
+                  <i class="fas fa-search search-icon"></i>
+                  <input type="text" placeholder="Search by Date or Time" class="search-input"
+                      [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
+              </div>
+
+              <div *ngIf="!isLoading && !hasError && EmployeeShiftResponseData.length === 0 && searchTerm === ''"
+                  class="alert alert-warning text-center" role="alert">
+                  No shifts available for you.
+              </div>
+
+              <div *ngIf="!isLoading && !hasError && searchTerm !== '' && paginatedShiftData.length === 0"
+                  class="alert alert-warning text-center" role="alert">
+                  No shifts found matching your search criteria.
+              </div>
+
+              <table
+                  *ngIf="!isLoading && !hasError && paginatedShiftData.length > 0"
+                  class="shift-table table-hover table-bordered table-striped custom-width-table">
+                  <thead class="table-header">
+                      <tr>
+                          <th scope="col" style="font-weight: 600; color: #0056b3 ;">Shift Date</th>
+                          <th scope="col" style="font-weight: 600; color: #0056b3 ;">Shift Time</th>
+                          <th scope="col" style="font-weight: 600; color: #0056b3">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let shift of paginatedShiftData">
+                          <td>{{ shift.shiftDate.toLocaleDateString('en-GB') }}</td>
+                          <td>{{ shift.shiftTime }}</td>
+                          <td>
+                              <button class="swap-btn" (click)="onSwapShift($event, shift)"
+                                  [disabled]="shift.status === 'Pending' || shift.status === 'Approved' || shift.status === 'Rejected'"
+                                  [class.inactive-button]="shift.status === 'Pending' || shift.status === 'Approved'|| shift.status === 'Rejected'">
+                                  <i class="fa-solid fa-arrows-rotate"></i> Swap Shift
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
+              <nav *ngIf="totalPages > 1 && !isLoading && !hasError && paginatedShiftData.length > 0">
+                  <ul class="pagination">
+                      <li class="page-item" [class.disabled]="currentPage === 1">
+                          <a class="page-link" (click)="goToPage(1)" aria-label="First">
+                              First </a>
+                      </li>
+                      <li class="page-item" [class.disabled]="currentPage === 1">
+                          <a class="page-link" (click)="previousPage()" aria-label="Previous">
+                              Previous </a>
+                      </li>
+                      <li class="page-item" *ngFor="let page of getPages()" [class.active]="page === currentPage">
+                          <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                      </li>
+                      <li class="page-item" [class.disabled]="currentPage === totalPages">
+                          <a class="page-link" (click)="nextPage()" aria-label="Next">
+                              Next </a>
+                      </li>
+                      <li class="page-item" [class.disabled]="currentPage === totalPages">
+                          <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
+                              Last </a>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="showShiftSwapRequestModal"></div>
+<div class="modal-dialog" *ngIf="showShiftSwapRequestModal">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Request Shift Swap</h5>
+          <button type="button" class="close" aria-label="Close" (click)="closeShiftSwapRequestModal()">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <form (ngSubmit)="triggerSubmitShiftSwapConfirmation()">
+              <div class="form-group">
+                  <label for="shiftDateDisplay">Shift Date:</label>
+                  <input type="text" id="shiftDateDisplay" class="form-control form-input"
+                      [value]="newShiftSwapFormModel.shiftDate?.toLocaleDateString('en-GB') || ''" readonly>
+              </div>
+
+              <div class="form-group">
+                  <label for="currentShiftTime">Current Shift:</label>
+                  <input type="text" id="currentShiftTime" class="form-control form-input"
+                      [value]="newShiftSwapFormModel.currentShiftTime" readonly>
+              </div>
+
+              <div class="form-group">
+                  <label for="changeShiftTo">Change Shift To:</label>
+                  <select id="changeShiftTo" name="changeShiftTo" class="form-control form-input"
+                      [(ngModel)]="newShiftSwapFormModel.changeShiftTo" required>
+                      <option value="" disabled>Select New Shift</option>
+                      <ng-container *ngFor="let shiftOption of ['Morning', 'Afternoon', 'Night']">
+                          <option *ngIf="shiftOption !== newShiftSwapFormModel.currentShiftTime"
+                              [value]="shiftOption">
+                              {{ shiftOption }}
+                          </option>
+                      </ng-container>
+                  </select>
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary"
+                      (click)="closeShiftSwapRequestModal()">Cancel</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="isSubmittingSwap">
+                      <span *ngIf="isSubmittingSwap" class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
+                      {{ isSubmittingSwap ? 'Submitting...' : 'Submit Request' }}
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+<app-popup #swapConfirmPopup></app-popup>

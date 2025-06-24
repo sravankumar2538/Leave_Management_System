@@ -1,0 +1,372 @@
+/*
+ * Styles for WeekProgressComponent
+ * This CSS focuses solely on styling this component's card and its internal elements (progress bars).
+ * Global body styles, navbar layout, and overall dashboard structure
+ * are assumed to be handled by parent components' CSS or global stylesheets.
+ */
+
+/* Card Styling */
+.card-dark {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle light shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+    display: flex;
+    flex-direction: column; /* To make header and body stack vertically */
+    height: 100%; /* Make the card take full height of its parent column */
+    width: 100%; /* Card fills the width of its parent column */
+  }
+  
+  .card-dark:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+  }
+  
+  .card-header-dark {
+    background-color: #f8f8f8; /* Light grey header for cards */
+    color: #333333; /* Dark text for header */
+    font-weight: 700; /* Made text bold */
+    border-bottom: 1px solid #e0e0e0; /* Light separator */
+    border-top-left-radius: 10px; /* Match card-dark border-radius */
+    border-top-right-radius: 10px; /* Match card-dark border-radius */
+    padding: 1rem 1.25rem; /* Padding for header */
+    font-size: 1.8rem; /* Larger header text */
+    text-align: center;
+  }
+  
+  .card-body {
+    flex-grow: 1; /* Allow the body to take up remaining vertical space */
+    padding: 1.25rem; /* Padding inside the card body */
+    display: flex;
+    flex-direction: column; /* Stack progress containers */
+    overflow-y: auto;
+  }
+  
+  /* Info and Error Messages */
+  .info-message,
+  .error-message {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .info-message {
+    background-color: #e0f7fa; /* Light blue */
+    color: #007bff;
+    border: 1px solid #b2ebf2;
+  }
+  
+  .error-message {
+    background-color: #ffebee; /* Light red */
+    color: #dc3545;
+    border: 1px solid #ffcdd2;
+  }
+  
+  /* Progress Bar Container Styling */
+  .progress-container {
+    margin-bottom: 15px; /* DECREASED margin-bottom between progress bars */
+  }
+  
+  .progress-label {
+    color: #555555; /* Dark grey text for labels */
+    font-weight: 700; /* Made text bold */
+    margin-bottom: 5px;
+    animation: slideInLeft 0.6s ease-out forwards; /* Animation for labels to slide in from left */
+    opacity: 0; /* Start invisible for animation */
+  }
+  
+  .progress {
+    height: 18px; /* DECREASED height of the progress bar track */
+    background-color: #e9ecef; /* Light grey track */
+    border-radius: 5px;
+    overflow: hidden; /* Clip inner content */
+    position: relative; /* Needed for absolute positioning of text if used */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+  }
+  
+  .progress-bar {
+    border-radius: 5px;
+    /* Primary way to animate width changes based on data */
+    transition: width 1.0s ease-out; /* Smooth transition for width change, increased duration for better visual */
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Keep text white for contrast on colored bars */
+    font-weight: 700;
+    font-size: 0.8rem; /* Adjusted font size for smaller height */
+  
+    /* Initial appearance animation for the bar itself */
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 0.8s ease-out forwards; /* Simple fade-in animation */
+  }
+  
+  /* Custom Progress Bar Colors (used in component.ts logic) */
+  .progress-bar-blue {
+    background-color: #007bff;
+  }
+  .progress-bar-green {
+    background-color: #28a745;
+  }
+  .progress-bar-orange {
+    background-color: #fd7e14;
+  }
+  .progress-bar-red {
+    background-color: #dc3545;
+  } /* Added for low attendance */
+  
+  /* Keyframes for animations */
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  /* Responsive Adjustments (only for elements within this component) */
+  @media (max-width: 992px) {
+    .card-header-dark {
+      font-size: 1.5rem;
+      padding: 15px 20px;
+    }
+  }
+  
+  /* General Body Styling (Keep these in your main styles.css or a global file) */
+  html,
+  body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    background-color: #f0f2f5; /* Light background for the whole page */
+    font-family: 'Inter', sans-serif; /* Using Inter font */
+    font-weight: bold; /* Make all body text bold by default */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll for the entire page */
+  }
+  
+  /* Form Container - Adjusted for layout integration */
+  .form-page-container {
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%; /* Take full width of its parent */
+    padding: 15px; /* Reduced example padding around the main content area */
+  }
+  
+  .date-form-card {
+    background-color: #f8f9fa; /* Changed to #f8f9fa for a subtle change on hover */
+    padding: 15px; /* Further reduced padding for a more compact main card */
+    border-radius: 12px; /* Slightly reduced border-radius */
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); /* Increased shadow for outer outline effect */
+    max-width: 650px; /* Reduced max-width for the main card */
+    margin: 25px auto 25px auto; /* Reduced top/bottom margin */
+    box-sizing: border-box;
+    text-align: center; /* Center content like the button if present */
+    animation: slideInDown 0.8s ease-out forwards; /* Slide down animation for the card */
+    opacity: 0; /* Start invisible for animation */
+    transform: translateY(-20px); /* Start slightly above */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Added background-color to transition */
+  }
+  
+  .date-form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow on hover */
+    background-color: #ffffff; /* Change background on hover */
+  }
+  
+  
+  /* Grid for the Information Cards */
+  .grid {
+    display: grid;
+    align-items: stretch;
+    justify-items: stretch;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two columns */
+  }
+  
+  .gap-4 {
+    gap: 0.7rem; /* Slightly reduced gap between cards */
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+  
+  .col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+  
+  /* Styling for the individual information cards (form-group) */
+  .form-group {
+    width: 100%;
+    height: 90px; /* Reduced fixed height for all cards */
+  
+    background-color: #f8f9fa; /* Red background */
+    color: #ffffff; /* White text for labels */
+  
+    padding: 8px 12px; /* Reduced padding for smaller cards */
+    border-radius: 8px; /* Slightly reduced border-radius */
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1); /* Increased shadow for outer outline effect */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    border: none; /* Removed border as requested for buttons */
+    cursor: pointer; /* Indicate it's clickable */
+  }
+  
+  .form-group:hover {
+    transform: translateY(-2px); /* Slightly less lift effect for smaller cards */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
+  }
+  
+  .form-label {
+    color: #000000;
+    font-size: 0.85rem; /* Reduced font size for titles */
+    font-weight: bold;
+    margin-bottom: 4px; /* Reduced space between title and value */
+  }
+  
+  .date-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding: 0;
+  }
+  
+  .date-input-wrapper .value {
+    font-size: 1.6rem; /* Reduced font size for the value */
+    color: #159b20; /* Green color for the value (default) */
+    font-weight: bolder;
+    line-height: 1;
+  }
+  
+  /* Remove margin-left for every second item in the grid, as gap handles spacing */
+  .form-group[style*="margin-left: 20px;"] {
+    margin-left: 0 !important;
+  }
+  
+  
+  /* Keyframes for Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .date-form-card {
+      padding: 12px; /* Further reduced padding */
+      max-width: 90%;
+      margin-top: 15px; /* Adjust top margin for smaller screens as well */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Adjusted shadow for responsiveness */
+    }
+    .grid-cols-2 {
+      grid-template-columns: repeat(1, minmax(0, 1fr)); /* Single column on smaller screens */
+    }
+    .form-group {
+      width: 100%;
+      height: 80px; /* Adjusted fixed height for smaller screens */
+      padding: 8px 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adjusted shadow for responsiveness */
+    }
+    .form-label {
+      font-size: 0.8rem; /* Further reduced font size */
+    }
+    .date-input-wrapper .value {
+      font-size: 1.5rem; /* Further reduced font size */
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .date-form-card {
+      padding: 8px; /* Even further reduced padding */
+      border-radius: 6px; /* Slightly smaller border-radius */
+      max-width: 95%;
+      margin-top: 10px; /* Adjust top margin for very small screens as well */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Adjusted shadow for responsiveness */
+    }
+    .form-group {
+      height: 70px; /* Adjusted fixed height for very small screens */
+      padding: 6px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); /* Adjusted shadow for responsiveness */
+    }
+    .form-label {
+      font-size: 0.75rem; /* Smallest font size for labels */
+    }
+    .date-input-wrapper .value {
+      font-size: 1.3rem; /* Smallest font size for values */
+    }
+  }
+  
+  /* *** IMPORTANT: Consider removing or adjusting this if you have a header *** */
+  /* If you have a fixed navigation bar, this margin-top on body might be needed.
+     However, if you want precise control over where this specific component starts,
+     it's better to manage its top margin directly. */
+  .body {
+    margin-top: -30px;
+  }
+  
+  
+  /* New Text Color Classes for Dynamic Styling */
+  .text-danger {
+    color: #dc3545; /* Red */
+  }
+  
+  .text-orange {
+    color: #fd7e14; /* Orange */
+  }
+  
+  .text-success {
+    color: #28a745; /* Green */
+  }

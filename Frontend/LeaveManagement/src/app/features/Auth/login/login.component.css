@@ -1,0 +1,209 @@
+.login-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+              url('../../../../../public//COG\ Logo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.login-box {
+  background-color: rgba(30, 30, 30, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  text-align: center;
+  width: 400px;
+  animation: slideIn 0.5s ease-out, pulseGlow 2s infinite alternate ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-right: 5%;
+}
+
+.login-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.5);
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Consolidated margin for the input group */
+.mb-3 {
+  margin-bottom: 20px !important; /* Ensure consistent spacing */
+}
+
+/* Input group styling - NOW CONTAINS THE BORDER */
+.input-group {
+  width: 100%;
+  position: relative;
+  display: flex; /* Ensure flex behavior */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  align-items: stretch; /* Stretch items to fill height */
+  border: 1px solid #0d00ff; /* Apply border to the entire input group */
+  border-radius: 5px; /* Apply border-radius to the entire input group */
+  overflow: hidden; /* Ensures child elements don't overflow the rounded corners */
+}
+
+/* Styling for the form control (input fields) */
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.1) !important; /* Enforce transparent background */
+  border: none !important; /* Remove individual borders from the input field */
+  border-radius: 0 !important; /* Remove individual border-radius from the input field */
+  box-sizing: border-box;
+  color: #ffffff !important; /* Enforce white text color */
+  transition: background-color 0.3s ease; /* Only transition background as border is on parent */
+  flex: 1 1 auto; /* Allow input to grow and shrink */
+  /* Remove default Bootstrap invalid/valid background images */
+  background-image: none;
+}
+
+.form-control::placeholder {
+  color: #ffffff;
+}
+
+.form-control:focus,
+.form-control:active { /* Target focus and active states */
+  background-color: rgba(255, 255, 255, 0.1) !important; /* Keep the same transparent background on focus/active */
+  color: #ffffff !important; /* Keep text white on focus/active */
+  /* Border and box-shadow handled by parent .input-group */
+  box-shadow: none !important; /* Remove focus glow from input field */
+  outline: none;
+}
+
+/* For browsers that apply autofill backgrounds (like Chrome) */
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus,
+.form-control:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px rgba(46, 50, 56, 0.9) inset !important; /* Change inset shadow to a dark color to hide autofill background */
+    -webkit-text-fill-color: #ffffff !important; /* Keep text white on autofill */
+    /* Border handled by parent .input-group */
+}
+
+/* Styling for the input-group-text (static icons at the start of input) */
+.input-group-text:first-child {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none !important; /* Remove individual border from this span */
+  color: #ffffff; /* Icon color */
+  padding: 12px 15px; /* Match input padding height */
+  border-radius: 0 !important; /* Remove individual border-radius from this span */
+  display: flex;
+  align-items: center; /* Center icon vertically */
+}
+
+/* Styling for the input-group-text that contains the validation icons */
+.input-group-text:last-child {
+  background-color: rgba(255, 255, 255, 0.1); /* Match your original transparent background */
+  border: none !important; /* Remove individual border from this span */
+  padding: 12px 15px; /* Match input padding height */
+  border-radius: 0 !important; /* Remove individual border-radius from this span */
+  display: flex;
+  align-items: center;
+}
+
+/* Validation feedback icons within input-group-text (no change here for border as it's on parent) */
+.input-group-text .fas {
+  font-size: 1rem; /* Standard size for these small icons */
+}
+
+/* Specific styling for valid/invalid states on the parent input-group */
+.input-group:has(.form-control.is-invalid) {
+  border-color: #0d00ff !important; /* Force blue border on the whole group when invalid */
+  box-shadow: none !important; /* Remove any red box-shadow/glow from the group */
+  outline: none !important; /* Remove any red outline from the group */
+}
+/* Ensure the form-control itself doesn't get red borders */
+.form-control.is-invalid {
+  border: none !important; /* Redundant but safe */
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.input-group:has(.form-control.is-valid) {
+  border-color: #28a745 !important; /* Green border on the whole group when valid */
+}
+
+
+/* Style for the validation feedback messages (no change) */
+.invalid-feedback {
+  font-weight: bold;
+  color: #dc3545; /* Red for error messages (this remains red) */
+  font-size: 0.875em;
+  margin-top: 5px; /* Small margin above the message */
+  text-align: left; /* Align error messages to the left */
+  display: block; /* Ensure it's always block to take space when visible */
+}
+
+
+.login-button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #0909d2;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.login-button:hover {
+  background-color: #02026b;
+  box-shadow: 0 8px 15px rgba(19, 3, 159, 0.4);
+  transform: translateY(-3px);
+}
+
+.login-button:disabled {
+    background-color: #6c757d; /* Grey out disabled button */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.login-button.logging-in {
+  background-color: #000000;
+  color: rgb(0, 0, 0);
+  transition: background-color 0.8s ease, transform 0.2s ease;
+  transform: scale(0.98);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 0px rgba(76, 175, 80, 0);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(251, 251, 251, 0.5), 0 0 15px rgba(5, 10, 111, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 0px rgba(76, 175, 80, 0);
+  }
+}
+
+.input-group-text{
+  margin-left: -30px;
+}
