@@ -585,5 +585,5 @@ dotnet run
             - Employee can logout form the System.
 
 ## API Endpoints documentation is available by running the backend of the project (via Swagger Documentation)
-#   L e a v e _ M a n a g e m e n t _ S y s t e m  
+ 
  
